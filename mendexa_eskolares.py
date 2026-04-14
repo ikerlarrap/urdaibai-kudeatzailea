@@ -4,17 +4,17 @@ import urllib.parse
 # Configuración de la página
 st.set_page_config(page_title="Mendexa Abentura Park Planner", layout="wide")
 
-# --- 1. LOGO Y ESTILO ---
+# --- 1. LOGO ETA ESTILOA ---
 try:
     st.image("logo_mendexa.png", width=250)
 except:
     st.markdown("🌲 **MENDEXA ABENTURA PARK**")
 
-# --- 2. TÍTULOS ---
+# --- 2. IZENBURUAK ---
 st.title("Mendexa Abentura Park: Eskolentzako Kalkulagailua 🌲")
 st.subheader("Kalkulatu zure aurrekontua momentuan / Calcula tu presupuesto al instante")
 
-# --- 3. DATOS DE LA ESCUELA ---
+# --- 3. IKASTETXEAREN DATUAK ---
 st.markdown("### 🏫 Ikastetxearen Datuak / Datos de la Escuela")
 col_esc1, col_esc2, col_esc3 = st.columns(3)
 
@@ -27,80 +27,84 @@ with col_esc3:
 
 st.divider()
 
-# --- 4. DETALLES DE LA RESERVA ---
-col_input, col_result = st.columns([1, 1.5])
+# --- 4. ERRESERBA XEHETASUNAK (MULTI-AUKERA) ---
+col_input, col_result = st.columns([1.2, 1])
 
 with col_input:
-    st.markdown("### 📝 Erreserba Xehetasunak")
+    st.markdown("### 📝 Ikasleak adinaren arabera / Alumnos por edad")
+    st.write("Idatzi ikasle kopurua dagokion programan (0 utzi ez badute egingo):")
     
-    num_alumnos = st.number_input("Ikasle kopurua (min. 10):", min_value=10, value=25)
-    num_profesores = st.number_input("Irakasle kopurua:", min_value=1, value=3)
-    
-    # Selector de programa con el orden corregido: Naranja tras Demo, y Amarillo al final en Yoko
-    paquete = st.selectbox("Aukeratu programa zehatza / Selecciona el programa:", [
+    # Programen zerrenda
+    programak = [
         "🟣 🟠 🟡  1 CIRCUITO: Solo YOKO (4 a 8/9 urte)",
         "🟣 🟠 🟢 🟢  2 CIRCUITOS (9 urte edo gehiago)",
         "🟣 🟠 🟢 🔵  2 CIRCUITOS (12 urte edo gehiago)",
         "🟣 🟠 🟢 🔵 🔵  3 CIRCUITOS (12-14 urte bitartean)",
         "🟣 🟠 🟢 🔵 🔴  3 CIRCUITOS (15 urte edo gehiago)"
-    ])
+    ]
 
-    # Lógica de precios y descripción del flujo de circuitos
-    if "YOKO" in paquete:
-        color_tema = "#FFC107" # Amarillo
-        zirkuituak_info = "Demo + Laranja + 3 itzuli Yoko zirkuituan"
-        requisitos = "Adina: 4-8 (9) urte | Iraupena: 1,5 - 2 ordu"
-        if num_alumnos > 29: precio = 13.70
-        elif 20 <= num_alumnos <= 29: precio = 14.70
-        else: precio = 15.70
-            
-    elif "2 CIRCUITOS" in paquete:
-        iraupena = "2 - 2,5 ordu"
-        if "9 urte" in paquete:
-            color_tema = "#4CAF50" # Verde
-            zirkuituak_info = "Demo + Laranja + 2 Zirkuitu Berde"
-            requisitos = f"Adina: >9 urte | Iraupena: {iraupena}"
-        else:
-            color_tema = "#2196F3" # Azul
-            zirkuituak_info = "Demo + Laranja + Zirkuitu Berdea + Zirkuitu Urdina"
-            requisitos = f"Adina: >12 urte | Iraupena: {iraupena}"
-        
-        if num_alumnos > 29: precio = 19.00
-        elif 20 <= num_alumnos <= 29: precio = 20.00
-        else: precio = 21.00
-            
-    else: # 3 CIRCUITOS
-        iraupena = "2,5 - 3 ordu"
-        if "12-14" in paquete:
-            color_tema = "#2196F3" # Azul
-            zirkuituak_info = "Demo + Laranja + Zirkuitu Berdea + 2 Zirkuitu Urdin"
-            requisitos = f"Adina: 12-14 urte | Iraupena: {iraupena}"
-        else:
-            color_tema = "#F44336" # Rojo
-            zirkuituak_info = "Demo + Laranja + Zirkuitu Berdea + Urdina + Gorria"
-            requisitos = f"Adina: >15 urte | Iraupena: {iraupena}"
+    alumnos_por_programa = {}
+    total_alumnos = 0
 
-        if num_alumnos > 29: precio = 21.00
-        elif 20 <= num_alumnos <= 29: precio = 22.00
-        else: precio = 23.00
+    # Iteratu programa bakoitzetik zenbaki-kutxa bat sortzeko
+    for p in programak:
+        c1, c2 = st.columns([4, 1])
+        with c1:
+            st.write(p)
+        with c2:
+            num = st.number_input("Ikasleak", min_value=0, value=0, key=p, label_visibility="collapsed")
+            alumnos_por_programa[p] = num
+            total_alumnos += num
 
-    st.info(f"🧗 **Ekintza:** {zirkuituak_info}\n\nℹ️ **Baldintzak:**\n{requisitos}")
+    st.markdown("---")
+    num_profesores = st.number_input("Irakasle kopurua guztira / Total profesores:", min_value=1, value=3)
 
 with col_result:
     st.markdown("### 💰 Aurrekontua / Presupuesto")
     
-    # Gratuidades: Profesores gratis (1 cada 10 alumnos)
-    profes_gratis = num_alumnos // 10
-    total_euros = num_alumnos * precio
+    # Gutxieneko ikasle kopuruaren kontrola
+    if total_alumnos < 10 and total_alumnos > 0:
+        st.warning("⚠️ Talde batentzako gutxieneko prezio aplikagarria 10 pertsonari dagokiona da.")
     
-    c1, c2 = st.columns(2)
-    c1.metric("Guztira / Total", f"{total_euros:.2f} €")
-    c2.metric("Ikasleko / Por alumno", f"{precio:.2f} €")
-    
-    st.write(f"🎁 **Doako irakasleak:** {profes_gratis} plaza (1 plaza 10 ikasleko)")
-    st.warning("📅 **Baldintzak:** Aste barruan aplikatzeko tarifak. Gutxienez 10 ikasle. BEZ %10 barne.")
+    if total_alumnos == 0:
+        st.info("👈 Mesedez, gehitu ikasleak ezkerreko panelean.")
+        st.stop()
 
-# --- 5. RESGUARDO VISUAL Y ENVÍO ---
+    # Deskontu-tartea zehaztu IKASLE TOTALEN arabera
+    if total_alumnos > 29: tier = 3
+    elif 20 <= total_alumnos <= 29: tier = 2
+    else: tier = 1
+
+    presupuesto_total = 0
+    desglose_html = ""
+    desglose_email = ""
+
+    # Kalkulatu programa bakoitzaren azpitotala
+    for p, num in alumnos_por_programa.items():
+        if num > 0:
+            if "YOKO" in p:
+                precio = 13.70 if tier == 3 else 14.70 if tier == 2 else 15.70
+            elif "2 CIRCUITOS" in p:
+                precio = 19.00 if tier == 3 else 20.00 if tier == 2 else 21.00
+            else: # 3 CIRCUITOS
+                precio = 21.00 if tier == 3 else 22.00 if tier == 2 else 23.00
+
+            subtotal = num * precio
+            presupuesto_total += subtotal
+            desglose_html += f"<li style='margin-bottom: 8px;'><strong>{num} ikasle</strong> - {p} <br><small style='color: #2E7D32;'>({precio:.2f} €/ikasle) = <strong>{subtotal:.2f} €</strong></small></li>"
+            desglose_email += f"- {num} alumnos: {p} ({precio:.2f} EUR/ud) = {subtotal:.2f} EUR\n"
+
+    # Doakotasuna Mendexan: 1 doan 10 ikasleko
+    profes_gratis = total_alumnos // 10
+    
+    st.metric("Guztira / Total", f"{presupuesto_total:.2f} €")
+    st.write(f"👥 **Ikasleak guztira:** {total_alumnos}")
+    st.write(f"🎁 **Doako irakasleak:** {profes_gratis} plaza (1 plaza 10 ikasleko)")
+    
+    if tier == 3:
+        st.success("🎉 Zorionak! Eskola honek tarifa merkeena lortu du (>29 ikasle).")
+
+# --- 5. RESGUARDO VISUALA ETA BIDALKETA ---
 st.divider()
 if st.button("Aurrekontua Sortu / Generar Resguardo", type="primary"):
     if nombre_escuela == "":
@@ -108,22 +112,26 @@ if st.button("Aurrekontua Sortu / Generar Resguardo", type="primary"):
     else:
         st.balloons()
         ticket_html = f"""
-        <div style="border: 5px solid {color_tema}; border-radius: 15px; padding: 25px; background-color: #fcfcfc; font-family: sans-serif;">
-            <h2 style="color: {color_tema}; margin: 0; text-align: center;">🌲 MENDEXA ABENTURA PARK</h2>
-            <hr style="border: 1px solid {color_tema}; margin: 15px 0;">
-            <h4 style="margin-top: 0; color: #444;">Programa: {paquete}</h4>
+        <div style="border: 5px solid #4CAF50; border-radius: 15px; padding: 25px; background-color: #fcfcfc; font-family: sans-serif;">
+            <h2 style="color: #4CAF50; margin: 0; text-align: center;">🌲 MENDEXA ABENTURA PARK</h2>
+            <hr style="border: 1px solid #4CAF50; margin: 15px 0;">
             <p><strong>Eskola:</strong> {nombre_escuela}</p>
-            <p><strong>Parte-hartzaileak:</strong> {num_alumnos} ikasle + {num_profesores} irakasle</p>
-            <p style="font-size: 0.9em; color: #666; background: #f0f0f0; padding: 10px; border-radius: 8px;">
-                <em>Zirkuituak: {zirkuituak_info}<br>Eskakizunak: {requisitos}</em>
-            </p>
-            <h3 style="text-align: right; color: #333; font-size: 24px;">GUZTIRA: {total_euros:.2f} €</h3>
+            <p><strong>Parte-hartzaileak:</strong> {total_alumnos} ikasle + {num_profesores} irakasle</p>
+            
+            <div style="background: #f0f0f0; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                <h4 style="margin-top: 0; color: #333; margin-bottom: 10px;">Aukeratutako Programak / Desglose:</h4>
+                <ul style="color: #555; list-style-type: none; padding-left: 0; margin-bottom: 0;">
+                    {desglose_html}
+                </ul>
+            </div>
+            
+            <h3 style="text-align: right; color: #333; font-size: 24px; margin-top: 20px;">GUZTIRA: {presupuesto_total:.2f} €</h3>
         </div>
         """
         st.markdown(ticket_html, unsafe_allow_html=True)
 
         asunto = f"Reserva Mendexa: {nombre_escuela}"
-        cuerpo = f"Colegio: {nombre_escuela}\nTelefono: {telefono_escuela}\nEmail: {email_escuela}\nPrograma: {paquete}\nAlumnos: {num_alumnos}\nTotal: {total_euros:.2f} EUR"
+        cuerpo = f"Colegio: {nombre_escuela}\nTelefono: {telefono_escuela}\nEmail: {email_escuela}\n\n--- DESGLOSE DE ALUMNOS ---\n{desglose_email}\nTotal Profesores: {num_profesores}\n\nTOTAL PRESUPUESTO: {presupuesto_total:.2f} EUR"
         mailto_link = f"mailto:info@mendexapark.com,ikerlarrap@gmail.com?subject={urllib.parse.quote(asunto)}&body={urllib.parse.quote(cuerpo)}"
         st.markdown(f'<br><a href="{mailto_link}" target="_blank"><button style="background-color:#4CAF50; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">📩 Bidali eskaera (info@mendexapark.com)</button></a>', unsafe_allow_html=True)
 

@@ -9,9 +9,9 @@ try:
 except:
     pass
 
-# Título principal en Euskera
-st.title("UR Urdaibai: Eskola-Egitarauen Kudeatzailea 🌊")
-st.subheader("Konbinazioa: Kanoa Zeharkaldia + Big SUP")
+# --- 2. TÍTULOS EN EUSKERA ---
+st.title("UR Urdaibai: Eskolentzako Kalkulagailua 🌊")
+st.subheader("Kalkulatu zure aurrekontua momentuan / Calcula tu presupuesto al instante")
 
 # --- SECCIÓN 1: DATOS DE LA ESCUELA ---
 st.markdown("### 🏫 Ikastetxearen Datuak / Datos de la Escuela")

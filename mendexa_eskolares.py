@@ -33,7 +33,7 @@ col_input, col_result = st.columns([1.3, 1])
 with col_input:
     st.markdown("### 📝 Ikasleak adinaren arabera / Alumnos por edad")
     
-    # Programen definizio zehatza (Demo + Naranja siempre al inicio)
+    # Programen definizio zehatza
     info_programak = {
         "🟣 🟠 🟡  1 ZIRKUITUA: YOKO SOILIK": {
             "desc": "Demo + Laranja + 3 itzuli Yoko zirkuituan",
@@ -115,7 +115,6 @@ with col_result:
                 subtotal = num * precio
                 presupuesto_total += subtotal
                 
-                # HTML sin indentación para evitar que Streamlit lo muestre como código
                 listado_resumen_html += f"""
 <div style='margin-bottom: 12px; border-left: 4px solid #2E7D32; padding-left: 10px;'>
 <span style='font-size: 1.1em;'><strong>{num} ikasle</strong> - {titulo}</span><br>
@@ -141,7 +140,7 @@ with col_result:
             else:
                 st.balloons()
                 
-                # HTML para el Ticket (sin espacios al inicio de línea para evitar errores de renderizado)
+                # HTML para el Ticket
                 ticket_html = f"""
 <div style="border: 5px solid #2E7D32; border-radius: 15px; padding: 25px; background-color: #fcfcfc; font-family: sans-serif; box-shadow: 10px 10px 20px rgba(0,0,0,0.05);">
 <h2 style="color: #2E7D32; text-align: center; margin-top: 0;">🌲 MENDEXA ABENTURA PARK 🌲</h2>
@@ -161,6 +160,10 @@ with col_result:
 </div>"""
                 st.markdown(ticket_html, unsafe_allow_html=True)
 
+                # Mensaje de éxito e instrucciones antes de enviar
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.success("✅ **Aurrekontua ondo sortu da! / ¡Presupuesto generado con éxito!**\n\nEgin klik beheko botoian zure posta aplikazioa irekitzeko eta eskaera bidaltzeko. / Haz clic en el botón inferior para abrir tu aplicación de correo y enviar la solicitud.")
+
                 # Preparación del email
                 asunto = f"Eskola Erreserba Test: {nombre_escuela}"
                 cuerpo = f"Ikastetxea: {nombre_escuela}\nTelefonoa: {telefono_escuela}\n\n--- HAUTATUTAKO PROGRAMAK ---\n{desglose_email}\nIkasleak guztira: {total_alumnos}\nIrakasle doakoak: {profes_gratis}\n\nPREZIOA GUZTIRA: {presupuesto_total:.2f} EUR"
@@ -168,8 +171,7 @@ with col_result:
                 # MAILTO para pruebas (ikerlarrap@gmail.com)
                 mailto_link = f"mailto:ikerlarrap@gmail.com?subject={urllib.parse.quote(asunto)}&body={urllib.parse.quote(cuerpo)}"
                 
-                st.markdown("<br>", unsafe_allow_html=True)
-                st.markdown(f'<div style="text-align: center;"><a href="{mailto_link}" target="_blank"><button style="background-color:#4CAF50; color:white; border:none; padding:15px 30px; border-radius:8px; cursor:pointer; font-size:18px; font-weight:bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📩 Eskaera Bidali / Enviar Solicitud</button></a></div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="text-align: center;"><a href="{mailto_link}" target="_blank"><button style="background-color:#4CAF50; color:white; border:none; padding:15px 30px; border-radius:8px; cursor:pointer; font-size:18px; font-weight:bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📩 Ireki posta eta bidali eskaera / Abrir correo y enviar</button></a></div>', unsafe_allow_html=True)
 
 st.divider()
 st.caption("Mendexa Abentura Park | info@mendexapark.com | 688 85 62 83")

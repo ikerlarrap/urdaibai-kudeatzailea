@@ -55,12 +55,28 @@ with col_input:
         | **3 ZIRKUITU** | **23,00 €** | **22,00 €** | **21,00 €** |
         """)
     
+    # Descripciones mejoradas con repeticiones
     info_programak = {
-        "🟣 🟠 🟡 1 ZIRKUITUA: YOKO SOILIK": {"id": "yoko", "cat": "yoko", "desc": "4-8 urte"},
-        "🟣 🟠 🟢 🟢 2 ZIRKUITU (9 urte +)": {"id": "2c_9", "cat": "2c", "desc": ">9 urte"},
-        "🟣 🟠 🟢 🔵 2 ZIRKUITU (12 urte +)": {"id": "2c_12", "cat": "2c", "desc": ">12 urte"},
-        "🟣 🟠 🟢 🔵 🔵 3 ZIRKUITU (12-14 urte)": {"id": "3c_12", "cat": "3c", "desc": "12-14 urte"},
-        "🟣 🟠 🟢 🔵 🔴 3 ZIRKUITU (15 urte +)": {"id": "3c_15", "cat": "3c", "desc": ">15 urte"}
+        "🟣 🟠 🟡 1 ZIRKUITUA: YOKO SOILIK": {
+            "id": "yoko", "cat": "yoko", 
+            "desc": "Demo + Laranja + 3 itzuli YOKO zirkuituan (Guztira 5 zirkuitu). 4-8 urte."
+        },
+        "🟣 🟠 🟢 🟢 2 ZIRKUITU (9 urte +)": {
+            "id": "2c_9", "cat": "2c", 
+            "desc": "Demo + Laranja + 2 itzuli zirkuitu BERDEETAN (Guztira 4 zirkuitu). >9 urte."
+        },
+        "🟣 🟠 🟢 🔵 2 ZIRKUITU (12 urte +)": {
+            "id": "2c_12", "cat": "2c", 
+            "desc": "Demo + Laranja + Zirkuitu BERDEA + URDINA (Guztira 4 zirkuitu). >12 urte."
+        },
+        "🟣 🟠 🟢 🔵 🔵 3 ZIRKUITU (12-14 urte)": {
+            "id": "3c_12", "cat": "3c", 
+            "desc": "Demo + Laranja + Zirkuitu BERDEA + 2 itzuli URDINEAN (Guztira 5 zirkuitu). 12-14 urte."
+        },
+        "🟣 🟠 🟢 🔵 🔴 3 ZIRKUITU (15 urte +)": {
+            "id": "3c_15", "cat": "3c", 
+            "desc": "Demo + Laranja + Zirkuitu BERDEA + URDINA + GORRIA (Guztira 5 zirkuitu). >15 urte."
+        }
     }
 
     alumnos_por_programa = {}
@@ -125,8 +141,8 @@ with col_result:
 
                 subtotal = num * precio
                 presupuesto_total += subtotal
-                listado_resumen_html += f"<div style='margin-bottom: 8px; border-left: 4px solid #2E7D32; padding-left: 10px;'><strong>{num} ikasle</strong> - {titulo}<br><span style='color: #2E7D32;'>{precio:.2f}€ x {num} = {subtotal:.2f}€</span></div>"
-                texto_descarga += f"- {num} ikasle - {titulo}: {subtotal:.2f}€\n"
+                listado_resumen_html += f"<div style='margin-bottom: 8px; border-left: 4px solid #2E7D32; padding-left: 10px;'><strong>{num} ikasle</strong> - {titulo}<br><small>{info_programak[titulo]['desc']}</small><br><span style='color: #2E7D32;'>{precio:.2f}€ x {num} = {subtotal:.2f}€</span></div>"
+                texto_descarga += f"- {num} ikasle - {titulo} ({info_programak[titulo]['desc']}): {subtotal:.2f}€\n"
 
         precio_medio = presupuesto_total / total_alumnos
         st.metric("Guztira / Total", f"{presupuesto_total:.2f} €")

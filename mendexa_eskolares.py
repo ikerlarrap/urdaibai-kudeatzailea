@@ -115,6 +115,7 @@ with col_result:
                 subtotal = num * precio
                 presupuesto_total += subtotal
                 
+                # HTML sin indentación
                 listado_resumen_html += f"""
 <div style='margin-bottom: 12px; border-left: 4px solid #2E7D32; padding-left: 10px;'>
 <span style='font-size: 1.1em;'><strong>{num} ikasle</strong> - {titulo}</span><br>
@@ -142,7 +143,7 @@ with col_result:
             else:
                 st.balloons()
                 
-                # 1. El Ticket Visual
+                # 1. El Ticket Visual (sin indentación)
                 ticket_html = f"""
 <div style="border: 5px solid #2E7D32; border-radius: 15px; padding: 25px; background-color: #fcfcfc; font-family: sans-serif; box-shadow: 10px 10px 20px rgba(0,0,0,0.05);">
 <h2 style="color: #2E7D32; text-align: center; margin-top: 0;">🌲 MENDEXA ABENTURA PARK 🌲</h2>

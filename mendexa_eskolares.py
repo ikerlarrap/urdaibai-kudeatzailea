@@ -46,6 +46,16 @@ col_input, col_result = st.columns([1.4, 1])
 with col_input:
     st.markdown("### 📝 Aukeratu zure jarduera-paketea / Elige tu paquete de actividades")
     
+    # NUEVO: Tabla de precios transparente y accesible
+    with st.expander("💶 Prezioen Taula / Tabla de Precios"):
+        st.markdown("""
+        | Programa | 10-19 ikasle | 20-29 ikasle | +29 ikasle |
+        | :--- | :---: | :---: | :---: |
+        | **YOKO SOILIK** | **15,70 €** | **14,70 €** | **13,70 €** |
+        | **2 ZIRKUITU** | **21,00 €** | **20,00 €** | **19,00 €** |
+        | **3 ZIRKUITU** | **23,00 €** | **22,00 €** | **21,00 €** |
+        """)
+    
     info_programak = {
         "🟣 🟠 🟡 1 ZIRKUITUA: YOKO SOILIK": {
             "desc": "Demo + Laranja + 3 itzuli Yoko zirkuituan. Adina: 4-8 (9) urte.",

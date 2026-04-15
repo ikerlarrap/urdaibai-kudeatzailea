@@ -142,4 +142,34 @@ if st.button("Aurrekontua Sortu / Generar Resguardo", type="primary"):
         <div style="border: 5px solid #2E7D32; border-radius: 15px; padding: 25px; background-color: #fcfcfc; font-family: sans-serif; box-shadow: 10px 10px 20px rgba(0,0,0,0.05);">
             <h2 style="color: #2E7D32; text-align: center; margin-top: 0;">🌲 MENDEXA ABENTURA PARK</h2>
             <h4 style="text-align: center; color: #666; margin-bottom: 20px;">ESKOLA ERRESERBA / RESGUARDO</h4>
-            <hr style="border: 1px solid #2E7D32; margin-bottom: 20px
+            <hr style="border: 1px solid #2E7D32; margin-bottom: 20px;">
+            
+            <p style="font-size: 1.1em;"><strong>Ikastetxea:</strong> {nombre_escuela}</p>
+            <p style="font-size: 1.1em;"><strong>Taldea:</strong> {total_alumnos} ikasle (+ {num_profesores} irakasle)</p>
+            
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h4 style="margin-top: 0; color: #2E7D32; border-bottom: 1px solid #ccc; padding-bottom: 5px;">Aukeratutakoa / Detalle de la selección:</h4>
+                {listado_resumen_html}
+            </div>
+            
+            <div style="text-align: right; border-top: 2px solid #2E7D32; padding-top: 15px;">
+                <span style="font-size: 1.2em; color: #444;">AURREKONTUA GUZTIRA:</span><br>
+                <span style="font-size: 2.2em; color: #2E7D32; font-weight: bold;">{presupuesto_total:.2f} €</span>
+                <p style="font-size: 0.8em; color: #888; margin-top: 5px;">BEZ %10 barne / IVA 10% incluido</p>
+            </div>
+        </div>
+        """
+        st.markdown(ticket_html, unsafe_allow_html=True)
+
+        # Preparación del email para pruebas
+        asunto = f"Eskola Erreserba Test: {nombre_escuela}"
+        cuerpo = f"Ikastetxea: {nombre_escuela}\nTelefonoa: {telefono_escuela}\n\n--- HAUTATUTAKO PROGRAMAK ---\n{desglose_email}\nIkasleak guztira: {total_alumnos}\nIrakasle doakoak: {profes_gratis}\n\nPREZIOA GUZTIRA: {presupuesto_total:.2f} EUR"
+        
+        # MAILTO modificado para pruebas (solo ikerlarrap@gmail.com)
+        mailto_link = f"mailto:ikerlarrap@gmail.com?subject={urllib.parse.quote(asunto)}&body={urllib.parse.quote(cuerpo)}"
+        
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown(f'<div style="text-align: center;"><a href="{mailto_link}" target="_blank"><button style="background-color:#4CAF50; color:white; border:none; padding:15px 30px; border-radius:8px; cursor:pointer; font-size:18px; font-weight:bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📩 Eskaera Bidali / Enviar Solicitud</button></a></div>', unsafe_allow_html=True)
+
+st.divider()
+st.caption("Mendexa Abentura Park | info@mendexapark.com | 688 85 62 83")

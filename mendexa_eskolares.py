@@ -94,6 +94,26 @@ with col_input:
     st.markdown("---")
     num_profesores = st.number_input("Irakasle kopurua guztira:", min_value=0, value=2)
 
+    # --- NUEVA SECCIÓN DE INFORMACIÓN DEL DOSSIER ---
+    st.markdown("### ℹ️ Informazio Garrantzitsua / Información Importante")
+    with st.expander("Irakurri baldintzak / Leer condiciones del dossier", expanded=False):
+        col_inf1, col_inf2 = st.columns(2)
+        with col_inf1:
+            st.markdown("""
+            **🎒 Zer ekarri:**
+            * Kirol-arropa erosoa.
+            * Kirol-oinetako itxiak (sandaliak debekatuta).
+            * Ile luzea jasota eraman behar da.
+            * Poltsikoak hutsik jardueran zehar.
+            """)
+        with col_inf2:
+            st.markdown("""
+            **🌦️ Eguraldia eta Ordutegia:**
+            * Euriarekin jarduera egin daiteke.
+            * Segurtasunagatik (ekaitza/haizea) parkeak jarduera bertan behera utzi dezake.
+            * 15 minutu lehenago heltzea gomendatzen da.
+            """)
+
     with st.expander("ℹ️ Zer dago barne? / ¿Qué incluye?"):
         st.markdown("* Monitoreak, aseguruak eta materiala barne. Arropa erosoa eta oinetako itxiak beharrezkoak dira.")
 
@@ -148,6 +168,7 @@ with col_result:
         st.metric("Guztira / Total", f"{presupuesto_total:.2f} €")
         st.metric("Ikasleko / Por alumno", f"{precio_medio:.2f} €")
         st.write(f"👥 Ikasleak: {total_alumnos} | 🎁 Doako plaza: {total_alumnos // 10}")
+        st.caption("Prezio guztiek %10eko BEZa barne hartzen dute / Todos los precios incluyen el 10% de IVA.")
         
         datos_listos = nombre_escuela != "" and es_email_valido(email_escuela) and es_telefono_valido(telefono_escuela)
 
@@ -161,12 +182,13 @@ with col_result:
                 <div style="background: #f0f0f0; padding: 15px; border-radius: 10px; margin: 15px 0;">{listado_resumen_html}</div>
                 <div style="text-align: right; border-top: 2px solid #2E7D32; padding-top: 15px;">
                     <span style="font-size: 1.1em; color: #666;">Ikasleko (batez beste): {precio_medio:.2f} €</span><br>
-                    <span style="font-size: 1.4em; color: #444; font-weight: bold;">GUZTIRA: {presupuesto_total:.2f} €</span>
+                    <span style="font-size: 1.4em; color: #444; font-weight: bold;">GUZTIRA: {presupuesto_total:.2f} €</span><br>
+                    <small style="color: #888;">BEZ barne (%10) / IVA incluido (%10)</small>
                 </div>
             </div>
             """, unsafe_allow_html=True)
             
-            texto_descarga += f"\nTOTALA: {presupuesto_total:.2f}€\nIkasleko: {precio_medio:.2f}€"
+            texto_descarga += f"\nTOTALA: {presupuesto_total:.2f}€ (BEZ barne)\nIkasleko: {precio_medio:.2f}€"
             st.download_button("📩 Deskargatu aurrekontua (TXT)", data=texto_descarga, file_name=f"Aurrekontua_{nombre_escuela.replace(' ', '_')}.txt")
 
             asunto = urllib.parse.quote(f"Reserva: {nombre_escuela}")

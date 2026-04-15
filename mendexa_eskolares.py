@@ -148,7 +148,12 @@ with col_result:
                 texto_descarga += f"{num} ikasle - {titulo}: {subtotal:.2f}€\n"
 
         profes_gratis = total_alumnos // 10
-        st.metric("Guztira / Total", f"{presupuesto_total:.2f} €")
+        precio_medio = presupuesto_total / total_alumnos # Kalkulua: Batez besteko prezioa ikasleko
+        
+        c_tot1, c_tot2 = st.columns(2)
+        c_tot1.metric("Guztira / Total", f"{presupuesto_total:.2f} €")
+        c_tot2.metric("Ikasleko / Por alumno", f"{precio_medio:.2f} €")
+        
         st.write(f"👥 Ikasleak: {total_alumnos} | 🎁 Doako plaza: {profes_gratis}")
         
         # Bloqueo de botón si los datos no son válidos o están vacíos
@@ -165,11 +170,15 @@ with col_result:
 <div style="background: #f0f0f0; padding: 15px; border-radius: 10px; margin: 15px 0;">
 {listado_resumen_html}
 </div>
-<h3 style="text-align: right; color: #2E7D32;">GUZTIRA: {presupuesto_total:.2f} €</h3>
+<div style="text-align: right; border-top: 2px solid #2E7D32; padding-top: 15px;">
+    <span style="font-size: 1.1em; color: #666;">Ikasleko (batez beste): {precio_medio:.2f} €</span><br>
+    <span style="font-size: 1.4em; color: #444; font-weight: bold;">GUZTIRA: {presupuesto_total:.2f} €</span>
+</div>
 </div>"""
             st.markdown(ticket_html, unsafe_allow_html=True)
             
             # EXPORTACIÓN: Botón de descarga
+            texto_descarga += f"\nIkasleko (batez beste): {precio_medio:.2f}€"
             texto_descarga += f"\nTOTALA: {presupuesto_total:.2f}€\nBEZ barne."
             st.download_button("📩 Deskargatu aurrekontua (TXT)", data=texto_descarga, file_name=f"presupuesto_mendexa_{nombre_escuela.replace(' ', '_')}.txt")
 

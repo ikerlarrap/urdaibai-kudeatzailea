@@ -34,7 +34,7 @@ st.divider()
 col_in, col_res = st.columns([1.4, 1])
 
 with col_in:
-    st.markdown("### 📝 Aukeratu zure jarduera-paketea")
+    st.markdown("### 📝 Aukeratu zure jarduera-paketea / Elige tu paquete")
     with st.expander("💶 Prezioen Taula"):
         st.markdown("| Programa | 10-19 ik | 20-29 ik | +29 ik |\n| :--- | :---: | :---: | :---: |\n| YOKO | 15,70€ | 14,70€ | 13,70€ |\n| 2 ZIRK | 21,00€ | 20,00€ | 19,00€ |\n| 3 ZIRK | 23,00€ | 22,00€ | 21,00€ |")
 
@@ -56,7 +56,7 @@ with col_in:
             alumnos_por_prog[tit] = n
             total_alumnos += n
 
-with col_res:
+with col_result:
     st.markdown("### 💰 Aurrekontua")
     if total_alumnos > 0:
         tier = 3 if total_alumnos > 29 else 2 if total_alumnos >= 20 else 1
@@ -65,20 +65,22 @@ with col_res:
         s1 = "#4CAF50" if tier == 1 else "#e0e0e0"
         s2 = "#4CAF50" if tier == 2 else "#e0e0e0"
         s3 = "#4CAF50" if tier == 3 else "#e0e0e0"
-        st.markdown(f'<div style="display: flex; justify-content: space-between; margin-bottom: 15px;"><div style="background:{s1}; color:white; padding:5px; border-radius:5px; width:32%; text-align:center; font-size:0.7em; font-weight:bold;">10-19 ik</div><div style="background:{s2}; color:white; padding:5px; border-radius:5px; width:32%; text-align:center; font-size:0.7em; font-weight:bold;">20-29 ik</div><div style="background:{s3}; color:white; padding:5px; border-radius:5px; width:32%; text-align:center; font-size:0.7em; font-weight:bold;">+29 ik</div></div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="display: flex; justify-content: space-between; margin-bottom: 15px;"><div style="background:{s1}; color:white; padding:5px; border-radius:5px; width:32%; text-align:center; font-size:0.7em; font-weight:bold;">10-19 ik</div><div style="background:{s2}; color:white; padding:5px; border-radius:5px; width:32%; text-align:center; font-size:0.7em;">20-29 ik</div><div style="background:{s3}; color:white; padding:5px; border-radius:5px; width:32%; text-align:center; font-size:0.7em;">+29 ik</div></div>', unsafe_allow_html=True)
 
-        total_€ = 0
+        total_euro = 0
         listado_html = ""
         for tit, n in alumnos_por_prog.items():
             if n > 0:
                 cat = info_programak[tit]['cat']
                 p = (13.7 if tier==3 else 14.7 if tier==2 else 15.7) if cat=="yoko" else (19 if tier==3 else 20 if tier==2 else 21) if cat=="2c" else (21 if tier==3 else 22 if tier==2 else 23)
-                total_€ += n * p
+                total_euro += n * p
                 listado_html += f"<li>{n} ikasle - {tit}: <b>{n*p:.2f} €</b></li>"
 
-        precio_al = total_€ / total_alumnos
-        st.metric("Guztira / Total", f"{total_€:.2f} €")
+        precio_al = total_euro / total_alumnos
+        st.metric("Guztira / Total", f"{total_euro:.2f} €")
         st.metric("Ikasleko / Por alumno", f"{precio_al:.2f} €")
+        
+        st.write(f"👥 Ikasleak: {total_alumnos} | 🎁 Doako plaza: {total_alumnos // 10}")
         
         datos_ok = nombre_escuela != "" and es_email_valido(email_escuela) and es_telefono_valido(telefono_escuela)
         
@@ -92,20 +94,19 @@ with col_res:
                 <h2 style="text-align: center; color: #2E7D32;">🌲 MENDEXA ABENTURA PARK</h2>
                 <p><b>Ikastetxea:</b> {nombre_escuela}</p>
                 <ul>{listado_html}</ul>
-                <h3 style="text-align: right; border-top: 1px solid #ccc; padding-top: 10px;">GUZTIRA: {total_€:.2f} €</h3>
+                <h3 style="text-align: right; border-top: 1px solid #ccc; padding-top: 10px;">GUZTIRA: {total_euro:.2f} €</h3>
             </div>
             """
             st.markdown(resguardo_html, unsafe_allow_html=True)
             
             # BOTÓN DE DESCARGA (HTML PROFESIONAL)
-            # Generamos un archivo HTML que al abrirse parece un presupuesto oficial
-            html_descarga = f"<html><body style='font-family: Arial; padding: 40px;'><h1 style='color: #2E7D32;'>MENDEXA ABENTURA PARK</h1><h2>Aurrekontua / Presupuesto</h2><hr><p><b>Ikastetxea:</b> {nombre_escuela}</p><p><b>Telefonoa:</b> {telefono_escuela}</p><ul>{listado_html}</ul><h2 style='text-align: right;'>TOTALA: {total_€:.2f} EUR</h2><p style='font-size: 0.8em; color: gray;'>BEZ barne. Mendexa, 2026.</p></body></html>"
+            html_descarga = f"<html><body style='font-family: Arial; padding: 40px;'><h1 style='color: #2E7D32;'>MENDEXA ABENTURA PARK</h1><h2>Aurrekontua / Presupuesto</h2><hr><p><b>Ikastetxea:</b> {nombre_escuela}</p><p><b>Telefonoa:</b> {telefono_escuela}</p><ul>{listado_html}</ul><h2 style='text-align: right;'>TOTALA: {total_euro:.2f} EUR</h2><p style='font-size: 0.8em; color: gray;'>BEZ barne. Mendexa, 2026.</p></body></html>"
             
-            st.download_button("📥 Deskargatu Aurrekontua (HTML)", data=html_descarga, file_name=f"Presupuesto_{nombre_escuela}.html", mime="text/html")
+            st.download_button("📥 Deskargatu Aurrekontua (Fitxategia)", data=html_descarga, file_name=f"Presupuesto_{nombre_escuela}.html", mime="text/html")
             
             # BOTÓN EMAIL
             asunto = urllib.parse.quote(f"Reserva: {nombre_escuela}")
-            cuerpo = urllib.parse.quote(f"Ikastetxea: {nombre_escuela}\nTotal: {total_€:.2f}€")
+            cuerpo = urllib.parse.quote(f"Ikastetxea: {nombre_escuela}\nTotal: {total_euro:.2f}€")
             st.markdown(f'<br><center><a href="mailto:ikerlarrap@gmail.com?subject={asunto}&body={cuerpo}" target="_blank"><button style="background:#4CAF50; color:white; border:none; padding:15px; border-radius:8px; cursor:pointer; font-weight:bold;">📧 Bidali eskaera orain</button></a></center>', unsafe_allow_html=True)
     else:
         st.info("👈 Gehitu ikasleak aurrekontua ikusteko.")

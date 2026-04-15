@@ -31,10 +31,9 @@ st.divider()
 col_input, col_result = st.columns([1.3, 1])
 
 with col_input:
-    # Cambio solicitado: Título más comercial y claro
     st.markdown("### 📝 Aukeratu zure jarduera-paketea / Elige tu paquete de actividades")
     
-    # Programen definizio zehatza (Demo + Naranja siempre al inicio)
+    # Programen definizio zehatza
     info_programak = {
         "🟣 🟠 🟡  1 ZIRKUITUA: YOKO SOILIK": {
             "desc": "Demo + Laranja + 3 itzuli Yoko zirkuituan",
@@ -116,7 +115,6 @@ with col_result:
                 subtotal = num * precio
                 presupuesto_total += subtotal
                 
-                # HTML sin indentación para evitar que Streamlit lo muestre como código
                 listado_resumen_html += f"""
 <div style='margin-bottom: 12px; border-left: 4px solid #2E7D32; padding-left: 10px;'>
 <span style='font-size: 1.1em;'><strong>{num} ikasle</strong> - {titulo}</span><br>
@@ -136,22 +134,16 @@ with col_result:
 
         # --- 5. TICKET ETA BIDALKETA ---
         st.divider()
-        
-        # Uso del session_state para controlar los dos pasos del envío
-        if 'mostrar_confirmacion' not in st.session_state:
-            st.session_state.mostrar_confirmacion = False
+        st.markdown("### 📥 Eskaera Berretsi / Confirmar Solicitud")
 
         if st.button("Aurrekontua Sortu / Generar Resguardo", type="primary"):
             if nombre_escuela == "" or email_escuela == "":
-                st.error("Mesedez, bete ikastetxearen izena eta posta elektronikoa goian. / Por favor, rellena el nombre y email del colegio arriba.")
+                st.error("⚠️ Mesedez, bete ikastetxearen datuak. / Rellena los datos del colegio arriba.")
             else:
-                st.session_state.mostrar_confirmacion = True
                 st.balloons()
                 
-        # PASO 2: Confirmación y Ticket
-        if st.session_state.mostrar_confirmacion:
-            # Ticket visual
-            ticket_html = f"""
+                # 1. El Ticket Visual
+                ticket_html = f"""
 <div style="border: 5px solid #2E7D32; border-radius: 15px; padding: 25px; background-color: #fcfcfc; font-family: sans-serif; box-shadow: 10px 10px 20px rgba(0,0,0,0.05);">
 <h2 style="color: #2E7D32; text-align: center; margin-top: 0;">🌲 MENDEXA ABENTURA PARK 🌲</h2>
 <h4 style="text-align: center; color: #666; margin-bottom: 20px;">ESKOLA ERRESERBA / RESGUARDO</h4>
@@ -168,28 +160,18 @@ with col_result:
 <p style="font-size: 0.8em; color: #888; margin-top: 5px;">BEZ %10 barne / IVA 10% incluido</p>
 </div>
 </div>"""
-            st.markdown(ticket_html, unsafe_allow_html=True)
+                st.markdown(ticket_html, unsafe_allow_html=True)
+                st.info("💡 Aholkua: Egin pantaila-argazkia edo gorde PDF gisa. / Guarda este ticket.")
 
-            # Cuadro de confirmación de 2 pasos
-            st.markdown("<br>", unsafe_allow_html=True)
-            st.info("✅ **Aurrekontua ondo sortu da! / ¡Presupuesto generado con éxito!**")
-            
-            with st.container(border=True):
-                st.markdown("### Azken urratsa / Último paso")
-                st.write(f"Egiaztatu zure posta elektronikoa eskaera bidali aurretik: **{email_escuela}**")
+                # 2. El Botón de abrir el correo (Método simple de Urdaibai)
+                asunto = f"Eskola Erreserba Test: {nombre_escuela}"
+                cuerpo = f"Ikastetxea: {nombre_escuela}\nTelefonoa: {telefono_escuela}\nEmail: {email_escuela}\n\n--- HAUTATUTAKO PROGRAMAK ---\n{desglose_email}\nIkasleak guztira: {total_alumnos}\nIrakasle doakoak: {profes_gratis}\n\nPREZIOA GUZTIRA: {presupuesto_total:.2f} EUR"
                 
-                # Checkbox de confirmación
-                confirmacion = st.checkbox("Datuak zuzenak direla baieztatzen dut / Confirmo que los datos son correctos")
+                # MAILTO para pruebas
+                mailto_link = f"mailto:ikerlarrap@gmail.com?subject={urllib.parse.quote(asunto)}&body={urllib.parse.quote(cuerpo)}"
                 
-                if confirmacion:
-                    # Preparación del email
-                    asunto = f"Eskola Erreserba Test: {nombre_escuela}"
-                    cuerpo = f"Ikastetxea: {nombre_escuela}\nTelefonoa: {telefono_escuela}\nEmail: {email_escuela}\n\n--- HAUTATUTAKO PROGRAMAK ---\n{desglose_email}\nIkasleak guztira: {total_alumnos}\nIrakasle doakoak: {profes_gratis}\n\nPREZIOA GUZTIRA: {presupuesto_total:.2f} EUR"
-                    
-                    # MAILTO para pruebas (ikerlarrap@gmail.com)
-                    mailto_link = f"mailto:ikerlarrap@gmail.com?subject={urllib.parse.quote(asunto)}&body={urllib.parse.quote(cuerpo)}"
-                    
-                    st.markdown(f'<div style="text-align: center; margin-top: 15px;"><a href="{mailto_link}" target="_blank"><button style="background-color:#4CAF50; color:white; border:none; padding:15px 30px; border-radius:8px; cursor:pointer; font-size:18px; font-weight:bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📩 Ireki posta eta bidali eskaera / Abrir correo y enviar</button></a></div>', unsafe_allow_html=True)
+                st.markdown("<br>", unsafe_allow_html=True)
+                st.markdown(f'<div style="text-align: center;"><a href="{mailto_link}" target="_blank" style="text-decoration:none;"><button style="background-color:#4CAF50; color:white; border:none; padding:15px 30px; border-radius:8px; cursor:pointer; font-size:18px; font-weight:bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">📩 Ireki posta eta bidali eskaera / Abrir correo y enviar</button></a></div>', unsafe_allow_html=True)
 
 st.divider()
 st.caption("Mendexa Abentura Park | info@mendexapark.com | 688 85 62 83")

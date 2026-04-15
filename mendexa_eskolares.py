@@ -2,10 +2,10 @@ import streamlit as st
 import urllib.parse
 import re
 
-# Configuración de la página
+# --- CONFIGURACION DE PAGINA ---
 st.set_page_config(page_title="Mendexa Abentura Park Planner", layout="wide")
 
-# --- FUNCIONES DE VALIDACIÓN ---
+# --- FUNCIONES DE VALIDACION ---
 def es_email_valido(email):
     patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     return re.match(patron, email) is not None
@@ -13,13 +13,13 @@ def es_email_valido(email):
 def es_telefono_valido(tel):
     return len(tel) >= 9 and tel.isdigit()
 
-# --- 1. LOGO Y ESTILO ---
+# --- 1. LOGO ---
 try:
     st.image("logo_mendexa.png", width=250)
 except:
     st.markdown("🌲 **MENDEXA ABENTURA PARK**")
 
-# --- 2. TÍTULOS ---
+# --- 2. TITULOS ---
 st.title("Mendexa Abentura Park: Eskolentzako Kalkulagailua 🌲🌲🧗")
 st.subheader("Kalkulatu zure aurrekontua momentuan / Calcula tu presupuesto al instante")
 
@@ -40,13 +40,12 @@ with col_esc3:
 
 st.divider()
 
-# --- 4. SELECCIÓN DE ACTIVIDADES (DISEÑO COMPACTO) ---
+# --- 4. SELECCION DE ACTIVIDADES ---
 col_input, col_result = st.columns([1.4, 1])
 
 with col_input:
     st.markdown("### 📝 Aukeratu zure jarduera-paketea / Elige tu paquete de actividades")
     
-    # NUEVO: Tabla de precios transparente y accesible
     with st.expander("💶 Prezioen Taula / Tabla de Precios"):
         st.markdown("""
         | Programa | 10-19 ikasle | 20-29 ikasle | +29 ikasle |
@@ -57,32 +56,16 @@ with col_input:
         """)
     
     info_programak = {
-        "🟣 🟠 🟡 1 ZIRKUITUA: YOKO SOILIK": {
-            "desc": "Demo + Laranja + 3 itzuli Yoko zirkuituan. Adina: 4-8 (9) urte.",
-            "id": "yoko", "cat": "yoko"
-        },
-        "🟣 🟠 🟢 🟢 2 ZIRKUITU (9 urte +)": {
-            "desc": "Demo + Laranja + 2 Zirkuitu Berde. Adina: >9 urte.",
-            "id": "2c_9", "cat": "2c"
-        },
-        "🟣 🟠 🟢 🔵 2 ZIRKUITU (12 urte +)": {
-            "desc": "Demo + Laranja + Zirkuitu Berdea + Urdina. Adina: >12 urte.",
-            "id": "2c_12", "cat": "2c"
-        },
-        "🟣 🟠 🟢 🔵 🔵 3 ZIRKUITU (12-14 urte)": {
-            "desc": "Demo + Laranja + Zirkuitu Berdea + 2 Urdin. Adina: 12-14 urte.",
-            "id": "3c_12", "cat": "3c"
-        },
-        "🟣 🟠 🟢 🔵 🔴 3 ZIRKUITU (15 urte +)": {
-            "desc": "Demo + Laranja + Berdea + Urdina + Gorria. Adina: >15 urte.",
-            "id": "3c_15", "cat": "3c"
-        }
+        "🟣 🟠 🟡 1 ZIRKUITUA: YOKO SOILIK": {"id": "yoko", "cat": "yoko", "desc": "4-8 urte"},
+        "🟣 🟠 🟢 🟢 2 ZIRKUITU (9 urte +)": {"id": "2c_9", "cat": "2c", "desc": ">9 urte"},
+        "🟣 🟠 🟢 🔵 2 ZIRKUITU (12 urte +)": {"id": "2c_12", "cat": "2c", "desc": ">12 urte"},
+        "🟣 🟠 🟢 🔵 🔵 3 ZIRKUITU (12-14 urte)": {"id": "3c_12", "cat": "3c", "desc": "12-14 urte"},
+        "🟣 🟠 🟢 🔵 🔴 3 ZIRKUITU (15 urte +)": {"id": "3c_15", "cat": "3c", "desc": ">15 urte"}
     }
 
     alumnos_por_programa = {}
     total_alumnos = 0
 
-    # Diseño en filas compactas (sustituye a los expanders)
     for titulo, info in info_programak.items():
         c1, c2, c3 = st.columns([0.1, 4, 1.5])
         with c2:
@@ -98,35 +81,28 @@ with col_input:
     with st.expander("ℹ️ Zer dago barne? / ¿Qué incluye?"):
         st.markdown("* Monitoreak, aseguruak eta materiala barne. Arropa erosoa eta oinetako itxiak beharrezkoak dira.")
 
+# --- 5. RESULTADOS ---
 with col_result:
     st.markdown("### 💰 Aurrekontu Laburpena / Resumen")
     
     if total_alumnos == 0:
         st.info("👈 Gehitu ikasleak ezkerrean.")
     else:
-        # Lógica de tramos (Tiers)
-        if total_alumnos > 29: tier = 3
-        elif 20 <= total_alumnos <= 29: tier = 2
-        else: tier = 1
+        tier = 3 if total_alumnos > 29 else 2 if total_alumnos >= 20 else 1
 
-        # --- SEMÁFORO DE TARIFAS ---
-        bg_t1 = "#4CAF50" if tier == 1 else "#e0e0e0"
-        bg_t2 = "#4CAF50" if tier == 2 else "#e0e0e0"
-        bg_t3 = "#4CAF50" if tier == 3 else "#e0e0e0"
-        
-        color_t1 = "white" if tier == 1 else "#666"
-        color_t2 = "white" if tier == 2 else "#666"
-        color_t3 = "white" if tier == 3 else "#666"
-
+        # --- SEMAFORO ---
+        b1 = "#4CAF50" if tier == 1 else "#e0e0e0"
+        b2 = "#4CAF50" if tier == 2 else "#e0e0e0"
+        b3 = "#4CAF50" if tier == 3 else "#e0e0e0"
         st.markdown(f"""
         <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-family: sans-serif;">
-            <div style="background-color: {bg_t1}; color: {color_t1}; padding: 8px 5px; border-radius: 5px; font-size: 0.85em; text-align: center; width: 32%; font-weight: bold;">
+            <div style="background-color: {b1}; color: white; padding: 8px 5px; border-radius: 5px; font-size: 0.85em; text-align: center; width: 32%; font-weight: bold;">
                 10-19 ikasle<br><small style="font-weight: normal;">Tarifa Normala</small>
             </div>
-            <div style="background-color: {bg_t2}; color: {color_t2}; padding: 8px 5px; border-radius: 5px; font-size: 0.85em; text-align: center; width: 32%; font-weight: bold;">
+            <div style="background-color: {b2}; color: white; padding: 8px 5px; border-radius: 5px; font-size: 0.85em; text-align: center; width: 32%; font-weight: bold;">
                 20-29 ikasle<br><small style="font-weight: normal;">-1€ Deskontua</small>
             </div>
-            <div style="background-color: {bg_t3}; color: {color_t3}; padding: 8px 5px; border-radius: 5px; font-size: 0.85em; text-align: center; width: 32%; font-weight: bold;">
+            <div style="background-color: {b3}; color: white; padding: 8px 5px; border-radius: 5px; font-size: 0.85em; text-align: center; width: 32%; font-weight: bold;">
                 +29 ikasle<br><small style="font-weight: normal;">-2€ Deskontua</small>
             </div>
         </div>
@@ -149,54 +125,38 @@ with col_result:
 
                 subtotal = num * precio
                 presupuesto_total += subtotal
-                
-                listado_resumen_html += f"""
-<div style='margin-bottom: 8px; border-left: 4px solid #2E7D32; padding-left: 10px;'>
-<strong>{num} ikasle</strong> - {titulo}<br>
-<span style='color: #2E7D32;'>{precio:.2f}€ x {num} = {subtotal:.2f}€</span>
-</div>"""
-                texto_descarga += f"{num} ikasle - {titulo}: {subtotal:.2f}€\n"
+                listado_resumen_html += f"<div style='margin-bottom: 8px; border-left: 4px solid #2E7D32; padding-left: 10px;'><strong>{num} ikasle</strong> - {titulo}<br><span style='color: #2E7D32;'>{precio:.2f}€ x {num} = {subtotal:.2f}€</span></div>"
+                texto_descarga += f"- {num} ikasle - {titulo}: {subtotal:.2f}€\n"
 
-        profes_gratis = total_alumnos // 10
-        precio_medio = presupuesto_total / total_alumnos # Kalkulua: Batez besteko prezioa ikasleko
+        precio_medio = presupuesto_total / total_alumnos
+        st.metric("Guztira / Total", f"{presupuesto_total:.2f} €")
+        st.metric("Ikasleko / Por alumno", f"{precio_medio:.2f} €")
+        st.write(f"👥 Ikasleak: {total_alumnos} | 🎁 Doako plaza: {total_alumnos // 10}")
         
-        c_tot1, c_tot2 = st.columns(2)
-        c_tot1.metric("Guztira / Total", f"{presupuesto_total:.2f} €")
-        c_tot2.metric("Ikasleko / Por alumno", f"{precio_medio:.2f} €")
-        
-        st.write(f"👥 Ikasleak: {total_alumnos} | 🎁 Doako plaza: {profes_gratis}")
-        
-        # Bloqueo de botón si los datos no son válidos o están vacíos
         datos_listos = nombre_escuela != "" and es_email_valido(email_escuela) and es_telefono_valido(telefono_escuela)
 
         st.divider()
         if st.button("Aurrekontua Sortu / Generar", type="primary", disabled=not datos_listos):
             st.balloons()
+            st.markdown(f"""
+            <div style="border: 5px solid #2E7D32; border-radius: 15px; padding: 25px; background-color: #fcfcfc; color: black; font-family: sans-serif;">
+                <h2 style="color: #2E7D32; text-align: center; margin-top: 0;">🌲 MENDEXA ABENTURA PARK 🌲</h2>
+                <p><strong>Ikastetxea:</strong> {nombre_escuela}<br><strong>Taldea:</strong> {total_alumnos} ikasle</p>
+                <div style="background: #f0f0f0; padding: 15px; border-radius: 10px; margin: 15px 0;">{listado_resumen_html}</div>
+                <div style="text-align: right; border-top: 2px solid #2E7D32; padding-top: 15px;">
+                    <span style="font-size: 1.1em; color: #666;">Ikasleko (batez beste): {precio_medio:.2f} €</span><br>
+                    <span style="font-size: 1.4em; color: #444; font-weight: bold;">GUZTIRA: {presupuesto_total:.2f} €</span>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
             
-            ticket_html = f"""
-<div style="border: 5px solid #2E7D32; border-radius: 15px; padding: 25px; background-color: #fcfcfc; font-family: sans-serif;">
-<h2 style="color: #2E7D32; text-align: center; margin-top: 0;">🌲 MENDEXA ABENTURA PARK 🌲</h2>
-<p><strong>Ikastetxea:</strong> {nombre_escuela}<br><strong>Taldea:</strong> {total_alumnos} ikasle</p>
-<div style="background: #f0f0f0; padding: 15px; border-radius: 10px; margin: 15px 0;">
-{listado_resumen_html}
-</div>
-<div style="text-align: right; border-top: 2px solid #2E7D32; padding-top: 15px;">
-    <span style="font-size: 1.1em; color: #666;">Ikasleko (batez beste): {precio_medio:.2f} €</span><br>
-    <span style="font-size: 1.4em; color: #444; font-weight: bold;">GUZTIRA: {presupuesto_total:.2f} €</span>
-</div>
-</div>"""
-            st.markdown(ticket_html, unsafe_allow_html=True)
-            
-            # EXPORTACIÓN: Botón de descarga
-            texto_descarga += f"\nIkasleko (batez beste): {precio_medio:.2f}€"
-            texto_descarga += f"\nTOTALA: {presupuesto_total:.2f}€\nBEZ barne."
-            st.download_button("📩 Deskargatu aurrekontua (TXT)", data=texto_descarga, file_name=f"presupuesto_mendexa_{nombre_escuela.replace(' ', '_')}.txt")
+            texto_descarga += f"\nTOTALA: {presupuesto_total:.2f}€\nIkasleko: {precio_medio:.2f}€"
+            st.download_button("📩 Deskargatu aurrekontua (TXT)", data=texto_descarga, file_name=f"Aurrekontua_{nombre_escuela.replace(' ', '_')}.txt")
 
-            # EMAIL: Mailto
-            asunto = f"Eskola Erreserba: {nombre_escuela}"
-            cuerpo = f"Ikastetxea: {nombre_escuela}\nTelefonoa: {telefono_escuela}\nTotal: {presupuesto_total:.2f}€\n\nIkusi erantsitako dokumentua xehetasunetarako."
-            mailto_link = f"mailto:ikerlarrap@gmail.com?subject={urllib.parse.quote(asunto)}&body={urllib.parse.quote(cuerpo)}"
-            st.markdown(f'<div style="text-align: center; margin-top: 15px;"><a href="{mailto_link}" target="_blank"><button style="background-color:#4CAF50; color:white; border:none; padding:12px 20px; border-radius:8px; cursor:pointer;">📧 Bidali eskaera orain</button></a></div>', unsafe_allow_html=True)
+            asunto = urllib.parse.quote(f"Reserva: {nombre_escuela}")
+            cuerpo = urllib.parse.quote(f"Ikastetxea: {nombre_escuela}\nTotal: {presupuesto_total:.2f}€")
+            mailto_link = f"mailto:ikerlarrap@gmail.com?subject={asunto}&body={cuerpo}"
+            st.markdown(f'<center><a href="{mailto_link}" target="_blank"><button style="background-color:#4CAF50; color:white; border:none; padding:12px; border-radius:8px; cursor:pointer; font-weight:bold;">📧 Bidali eskaera orain</button></a></center>', unsafe_allow_html=True)
 
 st.divider()
 st.caption("Mendexa Abentura Park | 688 85 62 83")

@@ -31,7 +31,8 @@ st.divider()
 col_input, col_result = st.columns([1.3, 1])
 
 with col_input:
-    st.markdown("### 📝 Ikasleak adinaren arabera / Alumnos por edad")
+    # Cambio solicitado: Título más comercial y claro
+    st.markdown("### 📝 Aukeratu zure jarduera-paketea / Elige tu paquete de actividades")
     
     # Programen definizio zehatza (Demo + Naranja siempre al inicio)
     info_programak = {

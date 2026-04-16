@@ -20,7 +20,7 @@ except:
     st.markdown("🌲 **MENDEXA ABENTURA PARK**")
 
 # --- 2. TITULOS ---
-st.title("Mendexa Abentura Park: Eskolentzako Kalkulagailua 🌲🌲🧗")
+st.title("Mendexa Abentura Park: Ikastetxeentzat Aurrekontu Kalkulagailua 🌲🌲🧗")
 st.subheader("Kalkulatu zure aurrekontua momentuan / Calcula tu presupuesto al instante")
 
 # --- 3. DATOS DE LA ESCUELA ---
@@ -28,7 +28,7 @@ st.markdown("### 🏫 Ikastetxearen Datuak / Datos de la Escuela")
 col_esc1, col_esc2, col_esc3 = st.columns(3)
 
 with col_esc1:
-    nombre_escuela = st.text_input("Ikastetxearen izena / Nombre del colegio")
+    nombre_escuela = st.text_input("Ikastetxearen izena / Nombre del centro escolar")
 with col_esc2:
     telefono_escuela = st.text_input("Telefonoa / Teléfono")
     if telefono_escuela and not es_telefono_valido(telefono_escuela):
@@ -55,27 +55,27 @@ with col_input:
         | **3 ZIRKUITU** | **23,00 €** | **22,00 €** | **21,00 €** |
         """)
     
-    # Descripciones mejoradas con repeticiones
+    # Descripciones mejoradas con repeticiones, espacios y alturas
     info_programak = {
-        "🟣 🟠 🟡 1 ZIRKUITUA: YOKO SOILIK": {
+        "🟣 🟠 🟡 1 ZIRKUITUA: YOKO SOILIK (Adina / Edad: 4-8 urte)": {
             "id": "yoko", "cat": "yoko", 
-            "desc": "Demo + Laranja + 3 itzuli YOKO zirkuituan (Guztira 5 zirkuitu). 4-8 urte."
+            "desc": "Demo + Laranja + 3 itzuli YOKO zirkuituan (Guztira 5 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,10m"
         },
-        "🟣 🟠 🟢 🟢 2 ZIRKUITU (9 urte +)": {
+        "🟣 🟠 🟢 🟢 2 ZIRKUITU (Adina / Edad: >9 urte)": {
             "id": "2c_9", "cat": "2c", 
-            "desc": "Demo + Laranja + 2 itzuli zirkuitu BERDEETAN (Guztira 4 zirkuitu). >9 urte."
+            "desc": "Demo + Laranja + 2 itzuli zirkuitu BERDEETAN (Guztira 4 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,40m"
         },
-        "🟣 🟠 🟢 🔵 2 ZIRKUITU (12 urte +)": {
+        "🟣 🟠 🟢 🔵 2 ZIRKUITU (Adina / Edad: >12 urte)": {
             "id": "2c_12", "cat": "2c", 
-            "desc": "Demo + Laranja + Zirkuitu BERDEA + URDINA (Guztira 4 zirkuitu). >12 urte."
+            "desc": "Demo + Laranja + Zirkuitu BERDEA + URDINA (Guztira 4 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,50m"
         },
-        "🟣 🟠 🟢 🔵 🔵 3 ZIRKUITU (12-14 urte)": {
+        "🟣 🟠 🟢 🔵 🔵 3 ZIRKUITU (Adina / Edad: 12-14 urte)": {
             "id": "3c_12", "cat": "3c", 
-            "desc": "Demo + Laranja + Zirkuitu BERDEA + 2 itzuli URDINEAN (Guztira 5 zirkuitu). 12-14 urte."
+            "desc": "Demo + Laranja + Zirkuitu BERDEA + 2 itzuli URDINEAN (Guztira 5 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,50m"
         },
-        "🟣 🟠 🟢 🔵 🔴 3 ZIRKUITU (15 urte +)": {
+        "🟣 🟠 🟢 🔵 🔴 3 ZIRKUITU (Adina / Edad: >15 urte)": {
             "id": "3c_15", "cat": "3c", 
-            "desc": "Demo + Laranja + Zirkuitu BERDEA + URDINA + GORRIA (Guztira 5 zirkuitu). >15 urte."
+            "desc": "Demo + Laranja + Zirkuitu BERDEA + URDINA + GORRIA (Guztira 5 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,50m"
         }
     }
 
@@ -94,7 +94,7 @@ with col_input:
     st.markdown("---")
     num_profesores = st.number_input("Irakasle kopurua guztira:", min_value=0, value=2)
 
-    # --- NUEVA SECCIÓN DE INFORMACIÓN DEL DOSSIER ---
+    # --- INFORMACIÓN DEL DOSSIER ACTUALIZADA ---
     st.markdown("### ℹ️ Informazio Garrantzitsua / Información Importante")
     with st.expander("Irakurri baldintzak / Leer condiciones del dossier", expanded=False):
         col_inf1, col_inf2 = st.columns(2)
@@ -105,7 +105,14 @@ with col_input:
             * Kirol-oinetako itxiak (sandaliak debekatuta).
             * Ile luzea jasota eraman behar da.
             * Poltsikoak hutsik jardueran zehar.
-            """)
+            
+            <br>
+            
+            **📏 Altuerak / Alturas mínimas:**
+            * Yoko zirkuitua: > 1,10 m
+            * Zirkuitu Berdea: > 1,40 m
+            * Zirkuitu Urdina/Gorria: > 1,50 m
+            """, unsafe_allow_html=True)
         with col_inf2:
             st.markdown("""
             **🌦️ Eguraldia eta Ordutegia:**
@@ -161,8 +168,10 @@ with col_result:
 
                 subtotal = num * precio
                 presupuesto_total += subtotal
-                listado_resumen_html += f"<div style='margin-bottom: 8px; border-left: 4px solid #2E7D32; padding-left: 10px;'><strong>{num} ikasle</strong> - {titulo}<br><small>{info_programak[titulo]['desc']}</small><br><span style='color: #2E7D32;'>{precio:.2f}€ x {num} = {subtotal:.2f}€</span></div>"
-                texto_descarga += f"- {num} ikasle - {titulo} ({info_programak[titulo]['desc']}): {subtotal:.2f}€\n"
+                
+                # Eliminamos la línea duplicada de la descripción en el ticket visual para que no sature la vista, solo el título
+                listado_resumen_html += f"<div style='margin-bottom: 8px; border-left: 4px solid #2E7D32; padding-left: 10px;'><strong>{num} ikasle</strong> - {titulo.split(' (')[0]}<br><span style='color: #2E7D32;'>{precio:.2f}€ x {num} = {subtotal:.2f}€</span></div>"
+                texto_descarga += f"- {num} ikasle - {titulo.split(' (')[0]}: {subtotal:.2f}€\n"
 
         precio_medio = presupuesto_total / total_alumnos
         st.metric("Guztira / Total", f"{presupuesto_total:.2f} €")

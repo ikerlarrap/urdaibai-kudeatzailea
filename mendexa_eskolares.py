@@ -8,10 +8,13 @@ st.set_page_config(page_title="Mendexa Abentura Park Planner", layout="wide")
 # --- FUNCIONES DE VALIDACION ---
 def es_email_valido(email):
     patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
-    return re.match(patron, email) is not None
+    # .strip() erabiltzen dugu amaierako zuriuneak kentzeko
+    return re.match(patron, email.strip()) is not None
 
 def es_telefono_valido(tel):
-    return len(tel) >= 9 and tel.isdigit()
+    # Zuriuneak, marratxoak eta + ikurra garbitzen ditugu egiaztatu aurretik
+    tel_limpio = tel.replace(" ", "").replace("-", "").replace("+", "")
+    return len(tel_limpio) >= 9 and tel_limpio.isdigit()
 
 # --- 1. LOGO ---
 try:
@@ -68,7 +71,7 @@ with col_input:
     # Oharra: Demo eta Laranja zirkuituak
     st.info("ℹ️ **GARRANTZITSUA / IMPORTANTE:**\nZirkuitu guztiek **Demo** eta **Laranja** zirkuituak barne hartzen dituzte hasieran, beti egiten dira lehenengo. / Todos los programas incluyen los circuitos **Demo** y **Naranja** al inicio, siempre se realizan primero.")
 
-    # Descripciones mejoradas sin los círculos morado y naranja
+    # Descripciones mejoradas con repeticiones, espacios y alturas (Sin mencionar Demo/Naranja)
     info_programak = {
         "🟡 1 ZIRKUITUA: YOKO SOILIK (Adina / Edad: 4-8 urte)": {
             "id": "yoko", "cat": "yoko", 
@@ -203,7 +206,6 @@ with col_result:
 
         st.divider()
         if st.button("Aurrekontua Sortu / Generar", type="primary", disabled=not datos_listos):
-            # Globos eliminados
             
             # Formatear la información extra para la visualización del Ticket HTML
             info_html_opcional = ""

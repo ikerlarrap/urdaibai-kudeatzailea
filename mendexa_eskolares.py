@@ -68,25 +68,25 @@ with col_input:
     # Oharra: Demo eta Laranja zirkuituak
     st.info("ℹ️ **GARRANTZITSUA / IMPORTANTE:**\nZirkuitu guztiek **Demo** eta **Laranja** zirkuituak barne hartzen dituzte hasieran, beti egiten dira lehenengo. / Todos los programas incluyen los circuitos **Demo** y **Naranja** al inicio, siempre se realizan primero.")
 
-    # Descripciones mejoradas con repeticiones, espacios y alturas (Sin mencionar Demo/Naranja)
+    # Descripciones mejoradas sin los círculos morado y naranja
     info_programak = {
-        "🟣 🟠 🟡 1 ZIRKUITUA: YOKO SOILIK (Adina / Edad: 4-8 urte)": {
+        "🟡 1 ZIRKUITUA: YOKO SOILIK (Adina / Edad: 4-8 urte)": {
             "id": "yoko", "cat": "yoko", 
             "desc": "3 itzuli YOKO zirkuituan (Guztira 5 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,10m"
         },
-        "🟣 🟠 🟢 🟢 2 ZIRKUITU (Adina / Edad: >9 urte)": {
+        "🟢 🟢 2 ZIRKUITU (Adina / Edad: >9 urte)": {
             "id": "2c_9", "cat": "2c", 
             "desc": "2 itzuli zirkuitu BERDEETAN (Guztira 4 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,40m"
         },
-        "🟣 🟠 🟢 🔵 2 ZIRKUITU (Adina / Edad: >12 urte)": {
+        "🟢 🔵 2 ZIRKUITU (Adina / Edad: >12 urte)": {
             "id": "2c_12", "cat": "2c", 
             "desc": "Zirkuitu BERDEA + URDINA (Guztira 4 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,50m"
         },
-        "🟣 🟠 🟢 🔵 🔵 3 ZIRKUITU (Adina / Edad: 12-14 urte)": {
+        "🟢 🔵 🔵 3 ZIRKUITU (Adina / Edad: 12-14 urte)": {
             "id": "3c_12", "cat": "3c", 
             "desc": "Zirkuitu BERDEA + 2 itzuli URDINEAN (Guztira 5 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,50m"
         },
-        "🟣 🟠 🟢 🔵 🔴 3 ZIRKUITU (Adina / Edad: >15 urte)": {
+        "🟢 🔵 🔴 3 ZIRKUITU (Adina / Edad: >15 urte)": {
             "id": "3c_15", "cat": "3c", 
             "desc": "Zirkuitu BERDEA + URDINA + GORRIA (Guztira 5 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,50m"
         }

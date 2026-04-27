@@ -8,11 +8,9 @@ st.set_page_config(page_title="Mendexa Abentura Park Planner", layout="wide")
 # --- FUNCIONES DE VALIDACION ---
 def es_email_valido(email):
     patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
-    # .strip() erabiltzen dugu amaierako zuriuneak kentzeko
     return re.match(patron, email.strip()) is not None
 
 def es_telefono_valido(tel):
-    # Zuriuneak, marratxoak eta + ikurra garbitzen ditugu egiaztatu aurretik
     tel_limpio = tel.replace(" ", "").replace("-", "").replace("+", "")
     return len(tel_limpio) >= 9 and tel_limpio.isdigit()
 
@@ -35,12 +33,8 @@ with col_esc1:
     nombre_escuela = st.text_input("Ikastetxearen izena / Nombre del centro escolar*")
 with col_esc2:
     telefono_escuela = st.text_input("Telefonoa / Teléfono*")
-    if telefono_escuela and not es_telefono_valido(telefono_escuela):
-        st.caption("⚠️ Sartu gutxienez 9 zenbaki / Mínimo 9 números")
 with col_esc3:
     email_escuela = st.text_input("Posta elektronikoa / Email*")
-    if email_escuela and not es_email_valido(email_escuela):
-        st.caption("⚠️ Email okerra / Email no válido")
 
 # Datu aukerakoak (Opcionales)
 col_opt1, col_opt2, col_opt3 = st.columns(3)
@@ -68,10 +62,8 @@ with col_input:
         | **3 ZIRKUITU** | **23,00 €** | **22,00 €** | **21,00 €** |
         """)
     
-    # Oharra: Demo eta Laranja zirkuituak
     st.info("ℹ️ **GARRANTZITSUA / IMPORTANTE:**\nZirkuitu guztiek **Demo** eta **Laranja** zirkuituak barne hartzen dituzte hasieran, beti egiten dira lehenengo. / Todos los programas incluyen los circuitos **Demo** y **Naranja** al inicio, siempre se realizan primero.")
 
-    # Descripciones mejoradas con repeticiones, espacios y alturas (Sin mencionar Demo/Naranja)
     info_programak = {
         "🟡 1 ZIRKUITUA: YOKO SOILIK (Adina / Edad: 4-8 urte)": {
             "id": "yoko", "cat": "yoko", 
@@ -110,7 +102,6 @@ with col_input:
     st.markdown("---")
     num_profesores = st.number_input("Irakasle kopurua guztira:", min_value=0, value=2)
 
-    # --- INFORMACIÓN DEL DOSSIER ACTUALIZADA ---
     st.markdown("### ℹ️ Informazio Garrantzitsua / Información Importante")
     with st.expander("Irakurri baldintzak / Leer condiciones del dossier", expanded=False):
         col_inf1, col_inf2 = st.columns(2)
@@ -149,7 +140,6 @@ with col_result:
     else:
         tier = 3 if total_alumnos > 29 else 2 if total_alumnos >= 20 else 1
 
-        # --- SEMAFORO ---
         b1 = "#4CAF50" if tier == 1 else "#e0e0e0"
         b2 = "#4CAF50" if tier == 2 else "#e0e0e0"
         b3 = "#4CAF50" if tier == 3 else "#e0e0e0"
@@ -170,7 +160,6 @@ with col_result:
         presupuesto_total = 0
         listado_resumen_html = ""
         
-        # Bloque de información extra para descargar TXT
         info_txt_opcional = ""
         if cif_escuela: info_txt_opcional += f"CIF: {cif_escuela}\n"
         if direccion_escuela: info_txt_opcional += f"Helbidea/Dirección: {direccion_escuela}\n"
@@ -201,13 +190,22 @@ with col_result:
         st.write(f"👥 Ikasleak: {total_alumnos} | 🎁 Doako plaza: {total_alumnos // 10}")
         st.caption("Prezio guztiek %10eko BEZa barne hartzen dute / Todos los precios incluyen el 10% de IVA.")
         
-        # Bloqueo de botón sigue dependiendo solo de los datos obligatorios
         datos_listos = nombre_escuela != "" and es_email_valido(email_escuela) and es_telefono_valido(telefono_escuela)
 
         st.divider()
-        if st.button("Aurrekontua Sortu / Generar", type="primary", disabled=not datos_listos):
+        
+        # SISTEMA DE MEMORIA PARA QUE EL TICKET NO DESAPAREZCA
+        if 'ticket_generado' not in st.session_state:
+            st.session_state['ticket_generado'] = False
+
+        if st.button("Aurrekontua Sortu / Generar", type="primary"):
+            if not datos_listos:
+                st.error("⚠️ Ezin da aurrekontua sortu: Mesedez, bete itzazu goian eskatutako datu guztiak (*Izena, Telefonoa eta Emaila*). \n\n⚠️ No se puede generar: Por favor, rellena los datos obligatorios arriba (*Nombre, Teléfono y Email*).")
+            else:
+                st.session_state['ticket_generado'] = True
+
+        if st.session_state.get('ticket_generado') and datos_listos:
             
-            # Formatear la información extra para la visualización del Ticket HTML
             info_html_opcional = ""
             if cif_escuela: info_html_opcional += f"<strong>CIF:</strong> {cif_escuela}<br>"
             if direccion_escuela: info_html_opcional += f"<strong>Helbidea/Dirección:</strong> {direccion_escuela}<br>"

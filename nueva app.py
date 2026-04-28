@@ -3,7 +3,21 @@ import urllib.parse
 import re
 
 # --- CONFIGURACION DE PAGINA ---
-st.set_page_config(page_title="Mendexa Abentura Park - Eskolak", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Mendexa Abentura Park - Eskolak", layout="wide", initial_sidebar_state="expanded")
+
+# --- CSS PARA TEXTO MÁS GRANDE ---
+st.markdown("""
+<style>
+    /* Aumentar el tamaño del texto general */
+    body, p, li, div, span, label {
+        font-size: 1.15rem !important;
+    }
+    .stRadio label {
+        font-size: 1.2rem !important;
+        font-weight: bold !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # --- FUNCIONES DE VALIDACION ---
 def es_email_valido(email):
@@ -14,31 +28,36 @@ def es_telefono_valido(tel):
     tel_limpio = tel.replace(" ", "").replace("-", "").replace("+", "")
     return len(tel_limpio) >= 9 and tel_limpio.isdigit()
 
-# --- CABECERA Y LOGO ---
-col_logo1, col_logo2, col_logo3 = st.columns([1, 2, 1])
-with col_logo2:
-    try:
-        st.image("https://mendexapark.com/wp-content/uploads/2017/09/logo-mendexa.park_.png", use_container_width=True)
-    except:
-        st.markdown("<h1 style='text-align:center;'>🌲 MENDEXA ABENTURA PARK 🌲</h1>", unsafe_allow_html=True)
+# --- MENU LATERAL (SIDEBAR) ---
+with st.sidebar:
+    st.image("https://mendexapark.com/wp-content/uploads/2017/09/logo-mendexa.park_.png", width=220)
+    st.write("")
+    menu = st.radio(
+        "📍 Nabigazioa / Navegación",
+        [
+            "🌲 1. Parkea / El Parque", 
+            "🧗 2. Zirkuituak / Circuitos", 
+            "🛡️ 3. Segurtasuna / Seguridad", 
+            "💶 4. Aurrekontua / Calculadora"
+        ]
+    )
+    st.divider()
+    st.caption("📍 Leagi Auzoa, 48289 Mendexa")
+    st.caption("📞 688 85 62 83")
+    st.caption("✉️ info@mendexapark.com")
 
-st.markdown("<h2 style='text-align:center; color:#2E7D32;'>Ikastetxeentzat Dossier Interaktiboa / Dossier Escolar Interactivo</h2>", unsafe_allow_html=True)
+# --- CABECERA PRINCIPAL ---
+st.markdown("<h2 style='text-align:center; color:#2E7D32; margin-top:-20px;'>Ikastetxeentzat Dossier Interaktiboa / Dossier Escolar Interactivo</h2>", unsafe_allow_html=True)
 st.markdown("<h5 style='text-align:center; color:#555;'>Aisialdia eta Abentura ezagutza eta ikaskuntzarekin bat datoz <br> <i>El ocio y la aventura no están reñidos con el conocimiento y el aprendizaje</i></h5>", unsafe_allow_html=True)
-st.write("")
-
-# --- SISTEMA DE PESTAÑAS ---
-tab_park, tab_circ, tab_seg, tab_calc = st.tabs([
-    "🌲 1. Parkea / El Parque", 
-    "🧗 2. Zirkuituak / Circuitos", 
-    "🛡️ 3. Segurtasuna / Seguridad", 
-    "💶 4. Aurrekontua / Calculadora"
-])
+st.divider()
 
 # ==========================================
-# PESTAÑA 1: EL PARQUE (INSTALACIONES + MAPA)
+# 1. EL PARQUE (INSTALACIONES + MAPA)
 # ==========================================
-with tab_park:
-    st.image("https://mendexapark.com/wp-content/uploads/2018/02/grupos-escolares-mendexa-park-parque-tirolinas-aventura-01.jpg", use_container_width=True)
+if menu == "🌲 1. Parkea / El Parque":
+    col_img1, col_img2, col_img3 = st.columns([1, 3, 1])
+    with col_img2:
+        st.image("https://mendexapark.com/wp-content/uploads/2018/02/grupos-escolares-mendexa-park-parque-tirolinas-aventura-01.jpg", use_container_width=True)
     
     col_p1, col_p2 = st.columns(2)
     with col_p1:
@@ -56,42 +75,34 @@ with tab_park:
         
     st.divider()
     st.markdown("### 🗺️ Parkeko Mapa / Mapa del Parque")
-    st.image("https://mendexapark.com/wp-content/uploads/2022/02/mendexa-plano-finla-Calidad-AltaCASTELLANO.jpg", use_container_width=True)
+    col_map1, col_map2, col_map3 = st.columns([1, 4, 1])
+    with col_map2:
+        st.image("https://mendexapark.com/wp-content/uploads/2022/02/mendexa-plano-finla-Calidad-AltaCASTELLANO.jpg", use_container_width=True)
 
 # ==========================================
-# PESTAÑA 2: LOS CIRCUITOS (EXPLICADOS CON COLORES)
+# 2. LOS CIRCUITOS (ALINEADOS + GALERÍA FINAL)
 # ==========================================
-with tab_circ:
+elif menu == "🧗 2. Zirkuituak / Circuitos":
     st.markdown("### 🧗 Zirkuituak / Circuitos")
     st.write("78 erronkatik gora eta 23 tirolinadun zirkuituri aurre egingo diezu. / Con más de 78 retos y 23 tirolinas en los árboles, en circuitos de diferente dificultad.")
+    st.write("")
     
+    # Fila 1 de circuitos
     c1, c2, c3 = st.columns(3)
     with c1:
         st.markdown("""
-        <div style='background-color:#FCE4EC; padding:20px; border-radius:10px; border-left: 5px solid #E91E63; height: 100%; margin-bottom: 20px;'>
+        <div style='background-color:#FCE4EC; padding:20px; border-radius:10px; border-left: 5px solid #E91E63; min-height: 280px;'>
         <h4 style='color:#C2185B; margin-top:0;'>🌸 DEMO</h4>
         <b>Adina/Edad:</b> Guztiak / Todos<br>
         <b>Altuera/Altura min.:</b> > 1,30m<br>
         <b>Erronkak/Retos:</b> 5 | <b>Tirolinak:</b> 2<br><br>
-        Ezagutza eta praktikaren zirkuitua. Partehartzaile guztiak igaro behar diren hasierako zirkuitua da.<br>
-        <i>Circuito de formación y práctica. Circuito inicial por el que todos deben pasar antes de comenzar.</i>
+        Ezagutza zirkuitua. Partehartzaile guztiak igaro behar dira.<br>
+        <i>Circuito inicial por el que todos deben pasar antes de comenzar.</i>
         </div>
         """, unsafe_allow_html=True)
-        
-        st.markdown("""
-        <div style='background-color:#C8E6C9; padding:20px; border-radius:10px; border-left: 5px solid #4CAF50; height: 100%;'>
-        <h4 style='color:#2E7D32; margin-top:0;'>🟢 BERDEA / VERDE</h4>
-        <b>Adina/Edad:</b> > 9 urte/años<br>
-        <b>Altuera/Altura min.:</b> > 1,40m<br>
-        <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 5<br><br>
-        Aurkikuntza zirkuitua. 2 itzuli zirkuitu BERDEETAN.<br>
-        <i>Circuito de descubrimiento. 2 vueltas en circuitos VERDES.</i>
-        </div>
-        """, unsafe_allow_html=True)
-
     with c2:
         st.markdown("""
-        <div style='background-color:#FFF59D; padding:20px; border-radius:10px; border-left: 5px solid #FBC02D; height: 100%; margin-bottom: 20px;'>
+        <div style='background-color:#FFF59D; padding:20px; border-radius:10px; border-left: 5px solid #FBC02D; min-height: 280px;'>
         <h4 style='color:#F57F17; margin-top:0;'>🟡 YOKO</h4>
         <b>Adina/Edad:</b> 4-8 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,10m<br>
@@ -100,21 +111,9 @@ with tab_circ:
         <i>Circuito para jóvenes aventureros. 3 vueltas en Yoko.</i>
         </div>
         """, unsafe_allow_html=True)
-
-        st.markdown("""
-        <div style='background-color:#BBDEFB; padding:20px; border-radius:10px; border-left: 5px solid #2196F3; height: 100%;'>
-        <h4 style='color:#1565C0; margin-top:0;'>🔵 URDINA / AZUL</h4>
-        <b>Adina/Edad:</b> > 12 urte/años<br>
-        <b>Altuera/Altura min.:</b> > 1,50m<br>
-        <b>Erronkak/Retos:</b> 17 | <b>Tirolinak:</b> 6<br><br>
-        Sentsazioen zirkuitua. Zirkuitu BERDEA + URDINA.<br>
-        <i>Circuito de sensaciones. VERDE + AZUL.</i>
-        </div>
-        """, unsafe_allow_html=True)
-
     with c3:
         st.markdown("""
-        <div style='background-color:#FFE0B2; padding:20px; border-radius:10px; border-left: 5px solid #FF9800; height: 100%; margin-bottom: 20px;'>
+        <div style='background-color:#FFE0B2; padding:20px; border-radius:10px; border-left: 5px solid #FF9800; min-height: 280px;'>
         <h4 style='color:#E65100; margin-top:0;'>🟠 LARANJA / NARANJA</h4>
         <b>Adina/Edad:</b> > 4 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,20m<br>
@@ -124,22 +123,65 @@ with tab_circ:
         </div>
         """, unsafe_allow_html=True)
 
+    st.write("") # Espaciador
+
+    # Fila 2 de circuitos
+    c4, c5, c6 = st.columns(3)
+    with c4:
         st.markdown("""
-        <div style='background-color:#FFCDD2; padding:20px; border-radius:10px; border-left: 5px solid #F44336; height: 100%;'>
+        <div style='background-color:#C8E6C9; padding:20px; border-radius:10px; border-left: 5px solid #4CAF50; min-height: 280px;'>
+        <h4 style='color:#2E7D32; margin-top:0;'>🟢 BERDEA / VERDE</h4>
+        <b>Adina/Edad:</b> > 9 urte/años<br>
+        <b>Altuera/Altura min.:</b> > 1,40m<br>
+        <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 5<br><br>
+        Aurkikuntza zirkuitua. 2 itzuli zirkuitu BERDEETAN.<br>
+        <i>Circuito de descubrimiento. 2 vueltas en circuitos VERDES.</i>
+        </div>
+        """, unsafe_allow_html=True)
+    with c5:
+        st.markdown("""
+        <div style='background-color:#BBDEFB; padding:20px; border-radius:10px; border-left: 5px solid #2196F3; min-height: 280px;'>
+        <h4 style='color:#1565C0; margin-top:0;'>🔵 URDINA / AZUL</h4>
+        <b>Adina/Edad:</b> > 12 urte/años<br>
+        <b>Altuera/Altura min.:</b> > 1,50m<br>
+        <b>Erronkak/Retos:</b> 17 | <b>Tirolinak:</b> 6<br><br>
+        Sentsazioen zirkuitua. Zirkuitu BERDEA + URDINA.<br>
+        <i>Circuito de sensaciones. VERDE + AZUL.</i>
+        </div>
+        """, unsafe_allow_html=True)
+    with c6:
+        st.markdown("""
+        <div style='background-color:#FFCDD2; padding:20px; border-radius:10px; border-left: 5px solid #F44336; min-height: 280px;'>
         <h4 style='color:#C62828; margin-top:0;'>🔴 GORRIA / ROJO</h4>
         <b>Adina/Edad:</b> > 15 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,50m<br>
         <b>Erronkak/Retos:</b> 21 | <b>Tirolinak:</b> 5<br><br>
-        Abenturazaleen zirkuitua. Zirkuitu BERDEA + URDINA + GORRIA.<br>
+        Abenturazaleen zirkuitua. BERDEA + URDINA + GORRIA.<br>
         <i>Circuito para aventureros. VERDE + AZUL + ROJO.</i>
         </div>
         """, unsafe_allow_html=True)
 
+    st.divider()
+    
+    # TIRA DE IMÁGENES AL FINAL
+    st.markdown("#### 📸 Irudiak / Imágenes")
+    img1, img2, img3, img4 = st.columns(4)
+    with img1:
+        st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-demo-01.jpg", use_container_width=True)
+    with img2:
+        st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-yoko-01.jpg", use_container_width=True)
+    with img3:
+        st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-verde-01.jpg", use_container_width=True)
+    with img4:
+        st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-rojo-01.jpg", use_container_width=True)
+
 # ==========================================
-# PESTAÑA 3: SEGURIDAD
+# 3. SEGURIDAD
 # ==========================================
-with tab_seg:
-    st.image("https://mendexapark.com/wp-content/uploads/2018/02/seguridad-mendexa-park-parque-tirolinas-aventura-01.jpg", use_container_width=True)
+elif menu == "🛡️ 3. Segurtasuna / Seguridad":
+    col_s_img1, col_s_img2, col_s_img3 = st.columns([1, 2, 1])
+    with col_s_img2:
+        st.image("https://mendexapark.com/wp-content/uploads/2018/02/seguridad-mendexa-park-parque-tirolinas-aventura-01.jpg", use_container_width=True)
     
     st.markdown("### 🛡️ Lerro etengabedun segurtasun sistema berria / Nuevo sistema de línea continua")
     st.write("Mendexa Abentura Parkek **lerro etengabea** jarri du. Behin erabiltzailea bizi-lerroari konektatzen denean, ezin izango da deskonektatu zirkuituaren amaiera arte. Autonomia handiagoaz parkeaz disfrutatzen uzten digun sistema erraza eta guztiz **SEGURUA**.")
@@ -161,9 +203,9 @@ with tab_seg:
         st.write("✓ **15 minutu lehenago heltzea gomendatzen da.** / Se recomienda llegar 15 minutos antes.")
 
 # ==========================================
-# PESTAÑA 4: LA CALCULADORA
+# 4. LA CALCULADORA
 # ==========================================
-with tab_calc:
+elif menu == "💶 4. Aurrekontua / Calculadora":
     st.markdown("### 🏫 Ikastetxearen Datuak / Datos de la Escuela")
 
     col_esc1, col_esc2, col_esc3 = st.columns(3)
@@ -205,23 +247,23 @@ with tab_calc:
         st.info("ℹ️ **GARRANTZITSUA / IMPORTANTE:**\nZirkuitu guztiek **Demo** eta **Laranja** zirkuituak barne hartzen dituzte hasieran, beti egiten dira lehenengo. / Todos los programas incluyen los circuitos **Demo** y **Naranja** al inicio.")
 
         info_programak = {
-            "🟡 1 ZIRKUITUA / CIRCUITO: YOKO SOILIK (Adina / Edad: 4-8 urte/años)": {
+            "1 ZIRKUITUA / CIRCUITO: YOKO SOILIK (Adina / Edad: 4-8 urte/años)": {
                 "id": "yoko", "cat": "yoko", 
                 "desc": "3 itzuli YOKO zirkuituan. / 3 vueltas en circuito YOKO.\n\n📏 Altuera / Altura min.: > 1,10m\n⏱️ Iraupena / Duración: 1h30 - 2h00"
             },
-            "🟢 🟢 2 ZIRKUITU / CIRCUITOS (Adina / Edad: >9 urte/años)": {
+            "2 ZIRKUITU / CIRCUITOS (Adina / Edad: >9 urte/años)": {
                 "id": "2c_9", "cat": "2c", 
                 "desc": "2 itzuli zirkuitu BERDEETAN. / 2 vueltas en circuitos VERDES.\n\n📏 Altuera / Altura min.: > 1,40m\n⏱️ Iraupena / Duración: 2h00 - 2h30"
             },
-            "🟢 🔵 2 ZIRKUITU / CIRCUITOS (Adina / Edad: >12 urte/años)": {
+            "2 ZIRKUITU / CIRCUITOS (Adina / Edad: >12 urte/años)": {
                 "id": "2c_12", "cat": "2c", 
                 "desc": "Zirkuitu BERDEA + URDINA. / Circuito VERDE + AZUL.\n\n📏 Altuera / Altura min.: > 1,50m\n⏱️ Iraupena / Duración: 2h00 - 2h30"
             },
-            "🟢 🔵 🔵 3 ZIRKUITU / CIRCUITOS (Adina / Edad: 12-14 urte/años)": {
+            "3 ZIRKUITU / CIRCUITOS (Adina / Edad: 12-14 urte/años)": {
                 "id": "3c_12", "cat": "3c", 
                 "desc": "Zirkuitu BERDEA + 2 itzuli URDINEAN. / Circuito VERDE + 2 vueltas en AZUL.\n\n📏 Altuera / Altura min.: > 1,50m\n⏱️ Iraupena / Duración: 2h30 - 3h00"
             },
-            "🟢 🔵 🔴 3 ZIRKUITU / CIRCUITOS (Adina / Edad: >15 urte/años)": {
+            "3 ZIRKUITU / CIRCUITOS (Adina / Edad: >15 urte/años)": {
                 "id": "3c_15", "cat": "3c", 
                 "desc": "Zirkuitu BERDEA + URDINA + GORRIA. / Circuito VERDE + AZUL + ROJO.\n\n📏 Altuera / Altura min.: > 1,50m\n⏱️ Iraupena / Duración: 2h30 - 3h00"
             }
@@ -256,13 +298,13 @@ with tab_calc:
             st.markdown(f"""
             <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-family: sans-serif;">
                 <div style="background-color: {b1}; color: white; padding: 8px 5px; border-radius: 5px; font-size: 0.85em; text-align: center; width: 32%; font-weight: bold;">
-                    10-19 ikasle/alumnos<br><small style="font-weight: normal;">Tarifa Normala / Normal</small>
+                    10-19 ikasle<br><small style="font-weight: normal;">Normala</small>
                 </div>
                 <div style="background-color: {b2}; color: white; padding: 8px 5px; border-radius: 5px; font-size: 0.85em; text-align: center; width: 32%; font-weight: bold;">
-                    20-29 ikasle/alumnos<br><small style="font-weight: normal;">-1€ Deskontua / Dto.</small>
+                    20-29 ikasle<br><small style="font-weight: normal;">-1€ Deskontua</small>
                 </div>
                 <div style="background-color: {b3}; color: white; padding: 8px 5px; border-radius: 5px; font-size: 0.85em; text-align: center; width: 32%; font-weight: bold;">
-                    +29 ikasle/alumnos<br><small style="font-weight: normal;">-2€ Deskontua / Dto.</small>
+                    +29 ikasle<br><small style="font-weight: normal;">-2€ Deskontua</small>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -340,6 +382,3 @@ with tab_calc:
                 cuerpo = urllib.parse.quote(f"Ikastetxea / Centro Escolar: {nombre_escuela}\nGUZTIRA / TOTAL: {presupuesto_total:.2f}€")
                 mailto_link = f"mailto:ikerlarrap@gmail.com?subject={asunto}&body={cuerpo}"
                 st.markdown(f'<center><a href="{mailto_link}" target="_blank"><button style="background-color:#4CAF50; color:white; border:none; padding:12px; border-radius:8px; cursor:pointer; font-weight:bold;">📧 Bidali eskaera orain / Enviar reserva ahora</button></a></center>', unsafe_allow_html=True)
-
-st.divider()
-st.caption("Mendexa Abentura Park | 688 85 62 83 | info@mendexapark.com")

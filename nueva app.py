@@ -5,7 +5,7 @@ import re
 # --- CONFIGURACION DE PAGINA ---
 st.set_page_config(page_title="Mendexa Abentura Park - Eskolak", layout="wide", initial_sidebar_state="expanded")
 
-# --- CSS PARA TEXTO MÁS GRANDE ---
+# --- CSS PARA TEXTO MÁS GRANDE Y ESPACIADO DEL MENÚ ---
 st.markdown("""
 <style>
     /* Aumentar el tamaño del texto general */
@@ -15,6 +15,11 @@ st.markdown("""
     .stRadio label {
         font-size: 1.2rem !important;
         font-weight: bold !important;
+    }
+    /* Estilo para forzar saltos de línea en los labels del radio button */
+    .stRadio div[role="radiogroup"] > label > div:first-child {
+        white-space: pre-wrap;
+        line-height: 1.4;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -35,10 +40,10 @@ with st.sidebar:
     menu = st.radio(
         "📍 Nabigazioa / Navegación",
         [
-            "🌲 1. Parkea / El Parque", 
-            "🧗 2. Zirkuituak / Circuitos", 
-            "🛡️ 3. Segurtasuna / Seguridad", 
-            "💶 4. Aurrekontua / Calculadora"
+            "🌲 1. Parkea \n\n El Parque", 
+            "🧗 2. Zirkuituak \n\n Circuitos", 
+            "🛡️ 3. Segurtasuna \n\n Seguridad", 
+            "💶 4. Aurrekontua \n\n Calculadora"
         ]
     )
     st.divider()
@@ -54,7 +59,7 @@ st.divider()
 # ==========================================
 # 1. EL PARQUE (INSTALACIONES + MAPA)
 # ==========================================
-if menu == "🌲 1. Parkea / El Parque":
+if menu == "🌲 1. Parkea \n\n El Parque":
     col_img1, col_img2, col_img3 = st.columns([1, 3, 1])
     with col_img2:
         st.image("https://mendexapark.com/wp-content/uploads/2018/02/grupos-escolares-mendexa-park-parque-tirolinas-aventura-01.jpg", use_container_width=True)
@@ -82,7 +87,7 @@ if menu == "🌲 1. Parkea / El Parque":
 # ==========================================
 # 2. LOS CIRCUITOS (ALINEADOS + GALERÍA FINAL)
 # ==========================================
-elif menu == "🧗 2. Zirkuituak / Circuitos":
+elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
     st.markdown("### 🧗 Zirkuituak / Circuitos")
     st.write("78 erronkatik gora eta 23 tirolinadun zirkuituri aurre egingo diezu. / Con más de 78 retos y 23 tirolinas en los árboles, en circuitos de diferente dificultad.")
     st.write("")
@@ -163,22 +168,35 @@ elif menu == "🧗 2. Zirkuituak / Circuitos":
 
     st.divider()
     
-    # TIRA DE IMÁGENES AL FINAL
+    # TIRA DE IMÁGENES AL FINAL (Dos filas de 3 imágenes, sin repetir)
     st.markdown("#### 📸 Irudiak / Imágenes")
-    img1, img2, img3, img4 = st.columns(4)
+    
+    # Fila 1 de imágenes
+    img1, img2, img3 = st.columns(3)
     with img1:
         st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-demo-01.jpg", use_container_width=True)
     with img2:
         st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-yoko-01.jpg", use_container_width=True)
     with img3:
         st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-verde-01.jpg", use_container_width=True)
+        
+    st.write("") # Espaciador
+    
+    # Fila 2 de imágenes
+    img4, img5, img6 = st.columns(3)
     with img4:
+        st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-azul-01.jpg", use_container_width=True)
+    with img5:
         st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-rojo-01.jpg", use_container_width=True)
+    with img6:
+        # Añadida una nueva imagen para completar la cuadrícula sin repetir
+        st.image("https://mendexapark.com/wp-content/uploads/2018/02/grupos-escolares-mendexa-park-parque-tirolinas-aventura-04.jpg", use_container_width=True)
+
 
 # ==========================================
 # 3. SEGURIDAD
 # ==========================================
-elif menu == "🛡️ 3. Segurtasuna / Seguridad":
+elif menu == "🛡️ 3. Segurtasuna \n\n Seguridad":
     col_s_img1, col_s_img2, col_s_img3 = st.columns([1, 2, 1])
     with col_s_img2:
         st.image("https://mendexapark.com/wp-content/uploads/2018/02/seguridad-mendexa-park-parque-tirolinas-aventura-01.jpg", use_container_width=True)
@@ -205,7 +223,7 @@ elif menu == "🛡️ 3. Segurtasuna / Seguridad":
 # ==========================================
 # 4. LA CALCULADORA
 # ==========================================
-elif menu == "💶 4. Aurrekontua / Calculadora":
+elif menu == "💶 4. Aurrekontua \n\n Calculadora":
     st.markdown("### 🏫 Ikastetxearen Datuak / Datos de la Escuela")
 
     col_esc1, col_esc2, col_esc3 = st.columns(3)

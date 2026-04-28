@@ -97,32 +97,35 @@ elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
     c1, c2, c3 = st.columns(3)
     with c1:
         st.markdown("""
-        <div style='background-color:#FCE4EC; padding:20px; border-radius:10px; border-left: 5px solid #E91E63; min-height: 280px;'>
-        <h4 style='color:#C2185B; margin-top:0;'>🌸 DEMO</h4>
+        <div style='background-color:#F3E5F5; padding:20px; border-radius:10px; border-left: 5px solid #9C27B0; min-height: 280px;'>
+        <h4 style='color:#7B1FA2; margin-top:0;'>🟣 DEMO</h4>
+        <b>Adina/Edad:</b> Guztiak / Todos<br>
         <b>Altuera/Altura min.:</b> > 1,30m<br>
         <b>Erronkak/Retos:</b> 5 | <b>Tirolinak:</b> 2<br><br>
-        Ezagutza zirkuitua. Segurtasun ekipoen erabilera ikasteko.<br>
-        <i>Circuito de formación y práctica. Para aprender el manejo de los equipos de seguridad.</i>
+        Ezagutza zirkuitua. Partehartzaile guztiak igaro behar dira.<br>
+        <i>Circuito inicial por el que todos deben pasar antes de comenzar.</i>
         </div>
         """, unsafe_allow_html=True)
     with c2:
         st.markdown("""
         <div style='background-color:#FFF59D; padding:20px; border-radius:10px; border-left: 5px solid #FBC02D; min-height: 280px;'>
         <h4 style='color:#F57F17; margin-top:0;'>🟡 YOKO</h4>
+        <b>Adina/Edad:</b> 4-8 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,10m<br>
         <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 3<br><br>
-        Gazte abenturazaleen zirkuitua, haien neurrirako jolasekin.<br>
-        <i>Circuito para jóvenes aventureros, con juegos a su medida.</i>
+        Gazte abenturazaleen zirkuitua. 3 itzuli YOKO zirkuituan.<br>
+        <i>Circuito para jóvenes aventureros. 3 vueltas en Yoko.</i>
         </div>
         """, unsafe_allow_html=True)
     with c3:
         st.markdown("""
         <div style='background-color:#FFE0B2; padding:20px; border-radius:10px; border-left: 5px solid #FF9800; min-height: 280px;'>
         <h4 style='color:#E65100; margin-top:0;'>🟠 LARANJA / NARANJA</h4>
+        <b>Adina/Edad:</b> > 4 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,20m<br>
         <b>Erronkak/Retos:</b> 5 | <b>Tirolinak:</b> 2<br><br>
-        Yoko ondorengo pausoa, altuera apur bat irabaziz.<br>
-        <i>El siguiente escalón después del Yoko, ganando un poco de altura.</i>
+        Yoko ondorengo pausoa, familia osoarentzat.<br>
+        <i>Un paso más para los jóvenes aventureros.</i>
         </div>
         """, unsafe_allow_html=True)
 
@@ -134,30 +137,33 @@ elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
         st.markdown("""
         <div style='background-color:#C8E6C9; padding:20px; border-radius:10px; border-left: 5px solid #4CAF50; min-height: 280px;'>
         <h4 style='color:#2E7D32; margin-top:0;'>🟢 BERDEA / VERDE</h4>
+        <b>Adina/Edad:</b> > 9 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,40m<br>
         <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 5<br><br>
-        Aurkikuntza zirkuitua. Lehenengo sentsazioak altueran.<br>
-        <i>Circuito de descubrimiento. Primeras sensaciones en altura.</i>
+        Aurkikuntza zirkuitua. 2 itzuli zirkuitu BERDEETAN.<br>
+        <i>Circuito de descubrimiento. 2 vueltas en circuitos VERDES.</i>
         </div>
         """, unsafe_allow_html=True)
     with c5:
         st.markdown("""
         <div style='background-color:#BBDEFB; padding:20px; border-radius:10px; border-left: 5px solid #2196F3; min-height: 280px;'>
         <h4 style='color:#1565C0; margin-top:0;'>🔵 URDINA / AZUL</h4>
+        <b>Adina/Edad:</b> > 12 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,50m<br>
         <b>Erronkak/Retos:</b> 17 | <b>Tirolinak:</b> 6<br><br>
-        Sentsazioen zirkuitua. Oreka eta altuera esperimentatzeko.<br>
-        <i>Circuito de sensaciones. Para experimentar la sensación de equilibrio y altura.</i>
+        Sentsazioen zirkuitua. Zirkuitu BERDEA + URDINA.<br>
+        <i>Circuito de sensaciones. VERDE + AZUL.</i>
         </div>
         """, unsafe_allow_html=True)
     with c6:
         st.markdown("""
         <div style='background-color:#FFCDD2; padding:20px; border-radius:10px; border-left: 5px solid #F44336; min-height: 280px;'>
         <h4 style='color:#C62828; margin-top:0;'>🔴 GORRIA / ROJO</h4>
+        <b>Adina/Edad:</b> > 15 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,50m<br>
         <b>Erronkak/Retos:</b> 21 | <b>Tirolinak:</b> 5<br><br>
-        Abenturazaleen zirkuitua. Zailtasun eta altuera handiagoko erronkak.<br>
-        <i>Circuito para aventureros. Retos de mayor dificultad y altura.</i>
+        Abenturazaleen zirkuitua. BERDEA + URDINA + GORRIA.<br>
+        <i>Circuito para aventureros. VERDE + AZUL + ROJO.</i>
         </div>
         """, unsafe_allow_html=True)
 
@@ -192,7 +198,7 @@ elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
 elif menu == "🔄 3. Konbinazioak \n\n Combinaciones":
     st.markdown("### 🔄 Zirkuitu Konbinazioak / Combinaciones de Circuitos")
     st.write("Eskola taldeentzako paketeak adinaren eta zirkuitu kopuruaren arabera diseinatuta daude. / Los paquetes para grupos escolares están diseñados según la edad y la cantidad de circuitos a realizar.")
-    st.info("ℹ️ **GARRANTZITSUA / IMPORTANTE:** Pakete guztiek **Demo** eta **Laranja** zirkuituak barne hartzen dituzte hasieran, beti egiten dira lehenengo. / Todos los paquetes incluyen los circuitos **Demo** y **Naranja** al inicio, siempre se realizan primero.")
+    st.info("ℹ️ **GARRANTZITSUA / IMPORTANTE:** Pakete guztiek **🟣 Demo** eta **🟠 Laranja** zirkuituak barne hartzen dituzte hasieran, beti egiten dira lehenengo. / Todos los paquetes incluyen los circuitos **🟣 Demo** y **🟠 Naranja** al inicio, siempre se realizan primero.")
     st.write("")
 
     col_comb1, col_comb2, col_comb3 = st.columns(3)
@@ -205,9 +211,9 @@ elif menu == "🔄 3. Konbinazioak \n\n Combinaciones":
         <p><b>Adina / Edad:</b> 4-8 (9) urte/años</p>
         <p><b>Iraupena / Duración:</b> 1h30 - 2h00</p>
         <p><b>Zirkuituak / Circuitos:</b></p>
-        <ul>
-            <li>Demo + Laranja/Naranja</li>
-            <li>3 itzuli <b>YOKO</b> zirkuituan / 3 vueltas en <b>YOKO</b></li>
+        <ul style='list-style-type: none; padding-left: 0;'>
+            <li>🟣 Demo + 🟠 Laranja/Naranja</li>
+            <li>🟡 3 itzuli <b>YOKO</b> zirkuituan / 3 vueltas en <b>YOKO</b></li>
         </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -220,10 +226,10 @@ elif menu == "🔄 3. Konbinazioak \n\n Combinaciones":
         <p><b>Adina / Edad:</b> > 9 urte/años</p>
         <p><b>Iraupena / Duración:</b> 2h00 - 2h30</p>
         <p><b>Zirkuituak / Circuitos:</b></p>
-        <ul>
-            <li>Demo + Laranja/Naranja</li>
-            <li><b>9+ urte:</b> 2 itzuli BERDEAN / 2 vueltas VERDE</li>
-            <li><b>12+ urte:</b> BERDEA + URDINA / VERDE + AZUL</li>
+        <ul style='list-style-type: none; padding-left: 0;'>
+            <li>🟣 Demo + 🟠 Laranja/Naranja</li>
+            <li><b>9+ urte:</b> 🟢 🟢 2 itzuli BERDEAN / 2 vueltas VERDE</li>
+            <li><b>12+ urte:</b> 🟢 BERDEA + 🔵 URDINA / VERDE + AZUL</li>
         </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -236,10 +242,10 @@ elif menu == "🔄 3. Konbinazioak \n\n Combinaciones":
         <p><b>Adina / Edad:</b> > 12 urte/años</p>
         <p><b>Iraupena / Duración:</b> 2h30 - 3h00</p>
         <p><b>Zirkuituak / Circuitos:</b></p>
-        <ul>
-            <li>Demo + Laranja/Naranja</li>
-            <li><b>12-14 urte:</b> BERDEA + 2 URDIN / VERDE + 2 AZUL</li>
-            <li><b>15+ urte:</b> BERDEA + URDINA + GORRIA / VERDE + AZUL + ROJO</li>
+        <ul style='list-style-type: none; padding-left: 0;'>
+            <li>🟣 Demo + 🟠 Laranja/Naranja</li>
+            <li><b>12-14 urte:</b> 🟢 BERDEA + 🔵 🔵 2 URDIN / VERDE + 2 AZUL</li>
+            <li><b>15+ urte:</b> 🟢 BERDEA + 🔵 URDINA + 🔴 GORRIA / VERDE + AZUL + ROJO</li>
         </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -249,7 +255,6 @@ elif menu == "🔄 3. Konbinazioak \n\n Combinaciones":
     col_img_comb1, col_img_comb2, col_img_comb3 = st.columns([1, 4, 1])
     with col_img_comb2:
         st.image("https://mendexapark.com/wp-content/uploads/2018/02/grupos-escolares-mendexa-park-parque-tirolinas-aventura-05.jpg", use_container_width=True, caption="Abentura taldean / Aventura en grupo")
-
 
 # ==========================================
 # 4. SEGURIDAD
@@ -320,28 +325,28 @@ elif menu == "💶 5. Aurrekontua \n\n Calculadora":
             | **3 ZIRKUITU** | **23,00 €** | **22,00 €** | **21,00 €** |
             """)
         
-        st.info("ℹ️ **GARRANTZITSUA:** Pakete guztiek **Demo** eta **Laranja** zirkuituak barne hartzen dituzte. / Todos los paquetes incluyen **Demo** y **Naranja**.")
+        st.info("ℹ️ **GARRANTZITSUA:** Pakete guztiek **🟣 Demo** eta **🟠 Laranja** zirkuituak barne hartzen dituzte. / Todos los paquetes incluyen **🟣 Demo** y **🟠 Naranja**.")
 
         info_programak = {
             "1 ZIRKUITUA / CIRCUITO: YOKO SOILIK (Adina / Edad: 4-8 urte/años)": {
                 "id": "yoko", "cat": "yoko", 
-                "desc": "3 itzuli YOKO zirkuituan. / 3 vueltas en circuito YOKO.\n\n📏 Altuera / Altura min.: > 1,10m"
+                "desc": "🟡 3 itzuli YOKO zirkuituan. / 3 vueltas en circuito YOKO.\n\n📏 Altuera / Altura min.: > 1,10m"
             },
             "2 ZIRKUITU / CIRCUITOS (Adina / Edad: >9 urte/años)": {
                 "id": "2c_9", "cat": "2c", 
-                "desc": "2 itzuli zirkuitu BERDEETAN. / 2 vueltas en circuitos VERDES.\n\n📏 Altuera / Altura min.: > 1,40m"
+                "desc": "🟢 🟢 2 itzuli zirkuitu BERDEETAN. / 2 vueltas en circuitos VERDES.\n\n📏 Altuera / Altura min.: > 1,40m"
             },
             "2 ZIRKUITU / CIRCUITOS (Adina / Edad: >12 urte/años)": {
                 "id": "2c_12", "cat": "2c", 
-                "desc": "Zirkuitu BERDEA + URDINA. / Circuito VERDE + AZUL.\n\n📏 Altuera / Altura min.: > 1,50m"
+                "desc": "🟢 Zirkuitu BERDEA + 🔵 URDINA. / Circuito VERDE + AZUL.\n\n📏 Altuera / Altura min.: > 1,50m"
             },
             "3 ZIRKUITU / CIRCUITOS (Adina / Edad: 12-14 urte/años)": {
                 "id": "3c_12", "cat": "3c", 
-                "desc": "Zirkuitu BERDEA + 2 itzuli URDINEAN. / Circuito VERDE + 2 vueltas en AZUL.\n\n📏 Altuera / Altura min.: > 1,50m"
+                "desc": "🟢 Zirkuitu BERDEA + 🔵 🔵 2 itzuli URDINEAN. / Circuito VERDE + 2 vueltas en AZUL.\n\n📏 Altuera / Altura min.: > 1,50m"
             },
             "3 ZIRKUITU / CIRCUITOS (Adina / Edad: >15 urte/años)": {
                 "id": "3c_15", "cat": "3c", 
-                "desc": "Zirkuitu BERDEA + URDINA + GORRIA. / Circuito VERDE + AZUL + ROJO.\n\n📏 Altuera / Altura min.: > 1,50m"
+                "desc": "🟢 Zirkuitu BERDEA + 🔵 URDINA + 🔴 GORRIA. / Circuito VERDE + AZUL + ROJO.\n\n📏 Altuera / Altura min.: > 1,50m"
             }
         }
 

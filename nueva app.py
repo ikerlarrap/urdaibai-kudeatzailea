@@ -33,6 +33,18 @@ def es_telefono_valido(tel):
     tel_limpio = tel.replace(" ", "").replace("-", "").replace("+", "")
     return len(tel_limpio) >= 9 and tel_limpio.isdigit()
 
+# --- CABECERA Y LOGO ---
+col_logo1, col_logo2, col_logo3 = st.columns([1, 2, 1])
+with col_logo2:
+    try:
+        st.image("https://mendexapark.com/wp-content/uploads/2017/09/logo-mendexa.park_.png", use_container_width=True)
+    except:
+        st.markdown("<h1 style='text-align:center;'>🌲 MENDEXA ABENTURA PARK 🌲</h1>", unsafe_allow_html=True)
+
+st.markdown("<h2 style='text-align:center; color:#2E7D32;'>Ikastetxeentzat Dossier Interaktiboa / Dossier Escolar Interactivo</h2>", unsafe_allow_html=True)
+st.markdown("<h5 style='text-align:center; color:#555;'>Aisialdia eta Abentura ezagutza eta ikaskuntzarekin bat datoz <br> <i>El ocio y la aventura no están reñidos con el conocimiento y el aprendizaje</i></h5>", unsafe_allow_html=True)
+st.write("")
+
 # --- MENU LATERAL (SIDEBAR) ---
 with st.sidebar:
     st.image("https://mendexapark.com/wp-content/uploads/2017/09/logo-mendexa.park_.png", width=220)
@@ -51,11 +63,6 @@ with st.sidebar:
     st.caption("📍 Leagi Auzoa, 48289 Mendexa")
     st.caption("📞 688 85 62 83")
     st.caption("✉️ info@mendexapark.com")
-
-# --- CABECERA PRINCIPAL ---
-st.markdown("<h2 style='text-align:center; color:#2E7D32; margin-top:-20px;'>Ikastetxeentzat Dossier Interaktiboa / Dossier Escolar Interactivo</h2>", unsafe_allow_html=True)
-st.markdown("<h5 style='text-align:center; color:#555;'>Aisialdia eta Abentura ezagutza eta ikaskuntzarekin bat datoz <br> <i>El ocio y la aventura no están reñidos con el conocimiento y el aprendizaje</i></h5>", unsafe_allow_html=True)
-st.divider()
 
 # ==========================================
 # 1. EL PARQUE (INSTALACIONES + MAPA)
@@ -86,46 +93,43 @@ if menu == "🌲 1. Parkea \n\n El Parque":
         st.image("https://mendexapark.com/wp-content/uploads/2022/02/mendexa-plano-finla-Calidad-AltaCASTELLANO.jpg", use_container_width=True)
 
 # ==========================================
-# 2. LOS CIRCUITOS (SÓLO INFO INDIVIDUAL)
+# 2. LOS CIRCUITOS (SÓLO INFO TÉCNICA)
 # ==========================================
 elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
     st.markdown("### 🧗 Zirkuituak / Circuitos")
-    st.write("78 erronkatik gora eta 23 tirolinadun zirkuituri aurre egingo diezu. / Con más de 78 retos y 23 tirolinas en los árboles, en circuitos de diferente dificultad.")
+    st.write("78 erronkatik gora eta 23 tirolinadun zirkuituri aurre egingo diezu. Informazio teknikoa: / Con más de 78 retos y 23 tirolinas en los árboles. Información técnica:")
     st.write("")
     
     # Fila 1 de circuitos
     c1, c2, c3 = st.columns(3)
     with c1:
         st.markdown("""
-        <div style='background-color:#F3E5F5; padding:20px; border-radius:10px; border-left: 5px solid #9C27B0; min-height: 280px;'>
+        <div style='background-color:#F3E5F5; padding:20px; border-radius:10px; border-left: 5px solid #9C27B0; min-height: 250px;'>
         <h4 style='color:#7B1FA2; margin-top:0;'>🟣 DEMO</h4>
         <b>Adina/Edad:</b> Guztiak / Todos<br>
         <b>Altuera/Altura min.:</b> > 1,30m<br>
         <b>Erronkak/Retos:</b> 5 | <b>Tirolinak:</b> 2<br><br>
-        Ezagutza zirkuitua. Partehartzaile guztiak igaro behar dira.<br>
-        <i>Circuito inicial por el que todos deben pasar antes de comenzar.</i>
+        Ezagutza zirkuitua. / <i>Circuito de formación.</i>
         </div>
         """, unsafe_allow_html=True)
     with c2:
         st.markdown("""
-        <div style='background-color:#FFF59D; padding:20px; border-radius:10px; border-left: 5px solid #FBC02D; min-height: 280px;'>
+        <div style='background-color:#FFF59D; padding:20px; border-radius:10px; border-left: 5px solid #FBC02D; min-height: 250px;'>
         <h4 style='color:#F57F17; margin-top:0;'>🟡 YOKO</h4>
         <b>Adina/Edad:</b> 4-8 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,10m<br>
         <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 3<br><br>
-        Gazte abenturazaleen zirkuitua. 3 itzuli YOKO zirkuituan.<br>
-        <i>Circuito para jóvenes aventureros. 3 vueltas en Yoko.</i>
+        Gazte abenturazaleen zirkuitua. / <i>Circuito jóvenes aventureros.</i>
         </div>
         """, unsafe_allow_html=True)
     with c3:
         st.markdown("""
-        <div style='background-color:#FFE0B2; padding:20px; border-radius:10px; border-left: 5px solid #FF9800; min-height: 280px;'>
+        <div style='background-color:#FFE0B2; padding:20px; border-radius:10px; border-left: 5px solid #FF9800; min-height: 250px;'>
         <h4 style='color:#E65100; margin-top:0;'>🟠 LARANJA / NARANJA</h4>
         <b>Adina/Edad:</b> > 4 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,20m<br>
         <b>Erronkak/Retos:</b> 5 | <b>Tirolinak:</b> 2<br><br>
-        Yoko ondorengo pausoa, familia osoarentzat.<br>
-        <i>Un paso más para los jóvenes aventureros.</i>
+        Yoko ondorengo pausoa. / <i>Un paso más tras el Yoko.</i>
         </div>
         """, unsafe_allow_html=True)
 
@@ -135,44 +139,40 @@ elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
     c4, c5, c6 = st.columns(3)
     with c4:
         st.markdown("""
-        <div style='background-color:#C8E6C9; padding:20px; border-radius:10px; border-left: 5px solid #4CAF50; min-height: 280px;'>
+        <div style='background-color:#C8E6C9; padding:20px; border-radius:10px; border-left: 5px solid #4CAF50; min-height: 250px;'>
         <h4 style='color:#2E7D32; margin-top:0;'>🟢 BERDEA / VERDE</h4>
         <b>Adina/Edad:</b> > 9 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,40m<br>
         <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 5<br><br>
-        Aurkikuntza zirkuitua. 2 itzuli zirkuitu BERDEETAN.<br>
-        <i>Circuito de descubrimiento. 2 vueltas en circuitos VERDES.</i>
+        Aurkikuntza zirkuitua. / <i>Circuito de descubrimiento.</i>
         </div>
         """, unsafe_allow_html=True)
     with c5:
         st.markdown("""
-        <div style='background-color:#BBDEFB; padding:20px; border-radius:10px; border-left: 5px solid #2196F3; min-height: 280px;'>
+        <div style='background-color:#BBDEFB; padding:20px; border-radius:10px; border-left: 5px solid #2196F3; min-height: 250px;'>
         <h4 style='color:#1565C0; margin-top:0;'>🔵 URDINA / AZUL</h4>
         <b>Adina/Edad:</b> > 12 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,50m<br>
         <b>Erronkak/Retos:</b> 17 | <b>Tirolinak:</b> 6<br><br>
-        Sentsazioen zirkuitua. Zirkuitu BERDEA + URDINA.<br>
-        <i>Circuito de sensaciones. VERDE + AZUL.</i>
+        Sentsazioen zirkuitua. / <i>Circuito de sensaciones.</i>
         </div>
         """, unsafe_allow_html=True)
     with c6:
         st.markdown("""
-        <div style='background-color:#FFCDD2; padding:20px; border-radius:10px; border-left: 5px solid #F44336; min-height: 280px;'>
+        <div style='background-color:#FFCDD2; padding:20px; border-radius:10px; border-left: 5px solid #F44336; min-height: 250px;'>
         <h4 style='color:#C62828; margin-top:0;'>🔴 GORRIA / ROJO</h4>
         <b>Adina/Edad:</b> > 15 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,50m<br>
         <b>Erronkak/Retos:</b> 21 | <b>Tirolinak:</b> 5<br><br>
-        Abenturazaleen zirkuitua. BERDEA + URDINA + GORRIA.<br>
-        <i>Circuito para aventureros. VERDE + AZUL + ROJO.</i>
+        Abenturazaleen zirkuitua. / <i>Circuito para aventureros.</i>
         </div>
         """, unsafe_allow_html=True)
 
     st.divider()
     
-    # TIRA DE IMÁGENES AL FINAL (Dos filas de 3 imágenes, sin repetir)
+    # TIRA DE IMÁGENES AL FINAL
     st.markdown("#### 📸 Irudiak / Imágenes")
     
-    # Fila 1 de imágenes
     img1, img2, img3 = st.columns(3)
     with img1:
         st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-demo-01.jpg", use_container_width=True)
@@ -181,9 +181,8 @@ elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
     with img3:
         st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-verde-01.jpg", use_container_width=True)
         
-    st.write("") # Espaciador
+    st.write("")
     
-    # Fila 2 de imágenes
     img4, img5, img6 = st.columns(3)
     with img4:
         st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-azul-01.jpg", use_container_width=True)
@@ -193,7 +192,7 @@ elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
         st.image("https://mendexapark.com/wp-content/uploads/2018/02/grupos-escolares-mendexa-park-parque-tirolinas-aventura-04.jpg", use_container_width=True)
 
 # ==========================================
-# 3. COMBINACIONES (NUEVA PESTAÑA)
+# 3. COMBINACIONES (SÓLO COMBINACIONES Y PAQUETES)
 # ==========================================
 elif menu == "🔄 3. Konbinazioak \n\n Combinaciones":
     st.markdown("### 🔄 Zirkuitu Konbinazioak / Combinaciones de Circuitos")
@@ -205,7 +204,7 @@ elif menu == "🔄 3. Konbinazioak \n\n Combinaciones":
     
     with col_comb1:
         st.markdown("""
-        <div style='background-color:#FAFAFA; padding:25px; border-radius:15px; border: 2px solid #FBC02D; height: 100%; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);'>
+        <div style='background-color:#FAFAFA; padding:25px; border-radius:15px; border: 2px solid #FBC02D; min-height: 380px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);'>
         <h3 style='color:#F57F17; text-align:center; margin-top:0;'>1 ZIRKUITUA <br><small>Solo Yoko</small></h3>
         <hr>
         <p><b>Adina / Edad:</b> 4-8 (9) urte/años</p>
@@ -220,7 +219,7 @@ elif menu == "🔄 3. Konbinazioak \n\n Combinaciones":
 
     with col_comb2:
         st.markdown("""
-        <div style='background-color:#FAFAFA; padding:25px; border-radius:15px; border: 2px solid #4CAF50; height: 100%; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);'>
+        <div style='background-color:#FAFAFA; padding:25px; border-radius:15px; border: 2px solid #4CAF50; min-height: 380px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);'>
         <h3 style='color:#2E7D32; text-align:center; margin-top:0;'>2 ZIRKUITU <br><small>2 Circuitos</small></h3>
         <hr>
         <p><b>Adina / Edad:</b> > 9 urte/años</p>
@@ -236,7 +235,7 @@ elif menu == "🔄 3. Konbinazioak \n\n Combinaciones":
 
     with col_comb3:
         st.markdown("""
-        <div style='background-color:#FAFAFA; padding:25px; border-radius:15px; border: 2px solid #F44336; height: 100%; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);'>
+        <div style='background-color:#FAFAFA; padding:25px; border-radius:15px; border: 2px solid #F44336; min-height: 380px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1);'>
         <h3 style='color:#C62828; text-align:center; margin-top:0;'>3 ZIRKUITU <br><small>3 Circuitos</small></h3>
         <hr>
         <p><b>Adina / Edad:</b> > 12 urte/años</p>

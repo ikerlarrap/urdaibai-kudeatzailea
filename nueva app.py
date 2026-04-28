@@ -35,7 +35,7 @@ tab_park, tab_circ, tab_seg, tab_calc = st.tabs([
 ])
 
 # ==========================================
-# PESTAÑA 1: EL PARQUE
+# PESTAÑA 1: EL PARQUE (INSTALACIONES + MAPA)
 # ==========================================
 with tab_park:
     st.image("https://mendexapark.com/wp-content/uploads/2018/02/grupos-escolares-mendexa-park-parque-tirolinas-aventura-01.jpg", use_container_width=True)
@@ -49,32 +49,35 @@ with tab_park:
         
     with col_p2:
         st.markdown("### 🏡 Instalazioak / Instalaciones")
-        st.write("✓ **Harrera / Recepción:** Bezeroarentzako arreta bulegoa / Oficina de atención.")
-        st.write("✓ **Gordelekua / Consigna:** Motxilak gordetzeko lekua / Espacio para guardar mochilas.")
+        st.write("✓ **Harrera / Recepción:** Bezeroarentzako arreta bulegoa / Oficina de atención al cliente.")
+        st.write("✓ **Gordelekua / Consigna:** Motxilak eta elementu pertsonalak gordetzeko lekua / Espacio para guardar mochilas y elementos personales.")
         st.write("✓ **Komunak / Baños:** Gizonezkoen eta emakumezkoen komunak / Baños masculinos y femeninos.")
-        st.write("✓ **Piknik Gunea / Merendero:** Mahaiekin prestatutako gunea norbere bazkariarekin erabiltzeko / Zona preparada con mesas para utilizar con comida propia.")
+        st.write("✓ **Piknik Gunea / Merendero:** Mahaiekin prestatutako gunea norbere bazkariarekin erabiltzeko / Zona preparada con mesas tipo merendero que se puede utilizar con comida propia.")
+        
+    st.divider()
+    st.markdown("### 🗺️ Parkeko Mapa / Mapa del Parque")
+    st.image("https://mendexapark.com/wp-content/uploads/2022/02/mendexa-plano-finla-Calidad-AltaCASTELLANO.jpg", use_container_width=True)
 
 # ==========================================
-# PESTAÑA 2: LOS CIRCUITOS
+# PESTAÑA 2: LOS CIRCUITOS (EXPLICADOS CON COLORES)
 # ==========================================
 with tab_circ:
     st.markdown("### 🧗 Zirkuituak / Circuitos")
     st.write("78 erronkatik gora eta 23 tirolinadun zirkuituri aurre egingo diezu. / Con más de 78 retos y 23 tirolinas en los árboles, en circuitos de diferente dificultad.")
-    st.warning("⚠️ **GARRANTZITSUA / IMPORTANTE:** Zirkuitu guztiek **Demo** (5 erronka, 2 tirolina) eta **Laranja** (15 erronka, 3 tirolina) zirkuituak barne hartzen dituzte hasieran. / Todos los programas incluyen los circuitos **Demo** y **Naranja** al inicio.")
     
     c1, c2, c3 = st.columns(3)
     with c1:
         st.markdown("""
-        <div style='background-color:#FFF59D; padding:20px; border-radius:10px; border-left: 5px solid #FBC02D; height: 100%;'>
-        <h4 style='color:#F57F17; margin-top:0;'>🟡 YOKO</h4>
-        <b>Adina/Edad:</b> 4-8 urte/años<br>
-        <b>Altuera/Altura min.:</b> > 1,10m<br>
-        <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 3<br><br>
-        Gazte abenturazaleen zirkuitua. 3 itzuli YOKO zirkuituan.<br>
-        <i>Circuito para jóvenes aventureros. 3 vueltas en Yoko.</i>
+        <div style='background-color:#FCE4EC; padding:20px; border-radius:10px; border-left: 5px solid #E91E63; height: 100%; margin-bottom: 20px;'>
+        <h4 style='color:#C2185B; margin-top:0;'>🌸 DEMO</h4>
+        <b>Adina/Edad:</b> Guztiak / Todos<br>
+        <b>Altuera/Altura min.:</b> > 1,30m<br>
+        <b>Erronkak/Retos:</b> 5 | <b>Tirolinak:</b> 2<br><br>
+        Ezagutza eta praktikaren zirkuitua. Partehartzaile guztiak igaro behar diren hasierako zirkuitua da.<br>
+        <i>Circuito de formación y práctica. Circuito inicial por el que todos deben pasar antes de comenzar.</i>
         </div>
         """, unsafe_allow_html=True)
-        st.write("")
+        
         st.markdown("""
         <div style='background-color:#C8E6C9; padding:20px; border-radius:10px; border-left: 5px solid #4CAF50; height: 100%;'>
         <h4 style='color:#2E7D32; margin-top:0;'>🟢 BERDEA / VERDE</h4>
@@ -88,6 +91,17 @@ with tab_circ:
 
     with c2:
         st.markdown("""
+        <div style='background-color:#FFF59D; padding:20px; border-radius:10px; border-left: 5px solid #FBC02D; height: 100%; margin-bottom: 20px;'>
+        <h4 style='color:#F57F17; margin-top:0;'>🟡 YOKO</h4>
+        <b>Adina/Edad:</b> 4-8 urte/años<br>
+        <b>Altuera/Altura min.:</b> > 1,10m<br>
+        <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 3<br><br>
+        Gazte abenturazaleen zirkuitua. 3 itzuli YOKO zirkuituan.<br>
+        <i>Circuito para jóvenes aventureros. 3 vueltas en Yoko.</i>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
         <div style='background-color:#BBDEFB; padding:20px; border-radius:10px; border-left: 5px solid #2196F3; height: 100%;'>
         <h4 style='color:#1565C0; margin-top:0;'>🔵 URDINA / AZUL</h4>
         <b>Adina/Edad:</b> > 12 urte/años<br>
@@ -97,10 +111,19 @@ with tab_circ:
         <i>Circuito de sensaciones. VERDE + AZUL.</i>
         </div>
         """, unsafe_allow_html=True)
-        st.write("")
-        st.image("https://mendexapark.com/wp-content/uploads/2018/02/grupos-escolares-mendexa-park-parque-tirolinas-aventura-04.jpg", use_container_width=True)
 
     with c3:
+        st.markdown("""
+        <div style='background-color:#FFE0B2; padding:20px; border-radius:10px; border-left: 5px solid #FF9800; height: 100%; margin-bottom: 20px;'>
+        <h4 style='color:#E65100; margin-top:0;'>🟠 LARANJA / NARANJA</h4>
+        <b>Adina/Edad:</b> > 4 urte/años<br>
+        <b>Altuera/Altura min.:</b> > 1,20m<br>
+        <b>Erronkak/Retos:</b> 5 | <b>Tirolinak:</b> 2<br><br>
+        Yoko ondorengo pausoa, familia osoarentzat.<br>
+        <i>Un paso más para los jóvenes aventureros.</i>
+        </div>
+        """, unsafe_allow_html=True)
+
         st.markdown("""
         <div style='background-color:#FFCDD2; padding:20px; border-radius:10px; border-left: 5px solid #F44336; height: 100%;'>
         <h4 style='color:#C62828; margin-top:0;'>🔴 GORRIA / ROJO</h4>
@@ -111,8 +134,6 @@ with tab_circ:
         <i>Circuito para aventureros. VERDE + AZUL + ROJO.</i>
         </div>
         """, unsafe_allow_html=True)
-        st.write("")
-        st.image("https://mendexapark.com/wp-content/uploads/2018/02/grupos-escolares-mendexa-park-parque-tirolinas-aventura-02.jpg", use_container_width=True)
 
 # ==========================================
 # PESTAÑA 3: SEGURIDAD

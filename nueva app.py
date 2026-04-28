@@ -14,11 +14,10 @@ def es_telefono_valido(tel):
     tel_limpio = tel.replace(" ", "").replace("-", "").replace("+", "")
     return len(tel_limpio) >= 9 and tel_limpio.isdigit()
 
-# --- CABECERA Y LOGO (IMÁGENES REALES DE TU WEB) ---
+# --- CABECERA Y LOGO ---
 col_logo1, col_logo2, col_logo3 = st.columns([1, 2, 1])
 with col_logo2:
     try:
-        # Cargamos el logo directamente desde vuestra web
         st.image("https://mendexapark.com/wp-content/uploads/2017/09/logo-mendexa.park_.png", use_container_width=True)
     except:
         st.markdown("<h1 style='text-align:center;'>🌲 MENDEXA ABENTURA PARK 🌲</h1>", unsafe_allow_html=True)
@@ -45,8 +44,7 @@ with tab_park:
     with col_p1:
         st.markdown("### 📍 Non gaude / Dónde estamos")
         st.write("**Euskal Kostaldean zuhaitz abentura parkea / Parque de aventura en la Costa Vasca.**")
-        st.write("Mendexan (Bizkaia) kokatua, Lekeitiotik 4 kilometrora eta erraz iristeko modukoa ikastetxeentzat.")
-        st.write("Situado en Mendexa (Bizkaia), a 4 Km. de Lekeitio. Fácilmente accesible para todos los centros de primaria, secundaria y bachiller.")
+        st.write("Mendexan (Bizkaia) kokatua, Lekeitiotik 4 kilometrora eta erraz iristeko modukoa ikastetxeentzat. / Situado en Mendexa (Bizkaia), a 4 Km. de Lekeitio. Fácilmente accesible para todos los centros escolares.")
         st.info("🚌 **Autobusa / Autobús:** Aparkalekua daukagu, autobusentzat prestatutako gunearekin. / Aparcamiento propio con una zona habilitada para autobuses.")
         
     with col_p2:
@@ -61,8 +59,8 @@ with tab_park:
 # ==========================================
 with tab_circ:
     st.markdown("### 🧗 Zirkuituak / Circuitos")
-    st.write("75 erronkatik gora eta 23 tirolinadun 6 zirkuituri aurre egingo diezu. / Con más de 75 juegos y 23 tirolinas en los árboles, en circuitos de diferente dificultad.")
-    st.warning("⚠️ **GARRANTZITSUA / IMPORTANTE:** Zirkuitu guztiek **Demo** eta **Laranja** zirkuituak barne hartzen dituzte hasieran, beti egiten dira lehenengo. / Todos los programas incluyen los circuitos **Demo** y **Naranja** al inicio, siempre se realizan primero.")
+    st.write("78 erronkatik gora eta 23 tirolinadun zirkuituri aurre egingo diezu. / Con más de 78 retos y 23 tirolinas en los árboles, en circuitos de diferente dificultad.")
+    st.warning("⚠️ **GARRANTZITSUA / IMPORTANTE:** Zirkuitu guztiek **Demo** (5 erronka, 2 tirolina) eta **Laranja** (15 erronka, 3 tirolina) zirkuituak barne hartzen dituzte hasieran. / Todos los programas incluyen los circuitos **Demo** y **Naranja** al inicio.")
     
     c1, c2, c3 = st.columns(3)
     with c1:
@@ -70,9 +68,10 @@ with tab_circ:
         <div style='background-color:#FFF59D; padding:20px; border-radius:10px; border-left: 5px solid #FBC02D; height: 100%;'>
         <h4 style='color:#F57F17; margin-top:0;'>🟡 YOKO</h4>
         <b>Adina/Edad:</b> 4-8 urte/años<br>
-        <b>Altuera/Altura min.:</b> > 1,10m<br><br>
-        Gazte abenturazaleen zirkuitua. 3 itzuli YOKO zirkuituan (Guztira 5 zirkuitu).<br>
-        <i>Circuito para jóvenes aventureros. 3 vueltas en Yoko (Total 5 circuitos).</i>
+        <b>Altuera/Altura min.:</b> > 1,10m<br>
+        <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 3<br><br>
+        Gazte abenturazaleen zirkuitua. 3 itzuli YOKO zirkuituan.<br>
+        <i>Circuito para jóvenes aventureros. 3 vueltas en Yoko.</i>
         </div>
         """, unsafe_allow_html=True)
         st.write("")
@@ -80,9 +79,10 @@ with tab_circ:
         <div style='background-color:#C8E6C9; padding:20px; border-radius:10px; border-left: 5px solid #4CAF50; height: 100%;'>
         <h4 style='color:#2E7D32; margin-top:0;'>🟢 BERDEA / VERDE</h4>
         <b>Adina/Edad:</b> > 9 urte/años<br>
-        <b>Altuera/Altura min.:</b> > 1,40m<br><br>
-        Aurkikuntza zirkuitua. 2 itzuli zirkuitu BERDEETAN (Guztira 4 zirkuitu).<br>
-        <i>Circuito de descubrimiento. 2 vueltas en circuitos VERDES (Total 4 circuitos).</i>
+        <b>Altuera/Altura min.:</b> > 1,40m<br>
+        <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 5<br><br>
+        Aurkikuntza zirkuitua. 2 itzuli zirkuitu BERDEETAN.<br>
+        <i>Circuito de descubrimiento. 2 vueltas en circuitos VERDES.</i>
         </div>
         """, unsafe_allow_html=True)
 
@@ -91,9 +91,10 @@ with tab_circ:
         <div style='background-color:#BBDEFB; padding:20px; border-radius:10px; border-left: 5px solid #2196F3; height: 100%;'>
         <h4 style='color:#1565C0; margin-top:0;'>🔵 URDINA / AZUL</h4>
         <b>Adina/Edad:</b> > 12 urte/años<br>
-        <b>Altuera/Altura min.:</b> > 1,50m<br><br>
-        Sentsazioen zirkuitua. Zirkuitu BERDEA + URDINA (Guztira 4 zirkuitu). Edo BERDEA + 2 itzuli URDINEAN (Guztira 5 zirkuitu).<br>
-        <i>Circuito de sensaciones. VERDE + AZUL (Total 4 circuitos) o VERDE + 2 AZUL (Total 5 circuitos).</i>
+        <b>Altuera/Altura min.:</b> > 1,50m<br>
+        <b>Erronkak/Retos:</b> 17 | <b>Tirolinak:</b> 6<br><br>
+        Sentsazioen zirkuitua. Zirkuitu BERDEA + URDINA.<br>
+        <i>Circuito de sensaciones. VERDE + AZUL.</i>
         </div>
         """, unsafe_allow_html=True)
         st.write("")
@@ -104,9 +105,10 @@ with tab_circ:
         <div style='background-color:#FFCDD2; padding:20px; border-radius:10px; border-left: 5px solid #F44336; height: 100%;'>
         <h4 style='color:#C62828; margin-top:0;'>🔴 GORRIA / ROJO</h4>
         <b>Adina/Edad:</b> > 15 urte/años<br>
-        <b>Altuera/Altura min.:</b> > 1,50m<br><br>
-        Abenturazaleen zirkuitua. Zirkuitu BERDEA + URDINA + GORRIA (Guztira 5 zirkuitu).<br>
-        <i>Circuito para aventureros. Circuito VERDE + AZUL + ROJO (Total 5 circuitos).</i>
+        <b>Altuera/Altura min.:</b> > 1,50m<br>
+        <b>Erronkak/Retos:</b> 21 | <b>Tirolinak:</b> 5<br><br>
+        Abenturazaleen zirkuitua. Zirkuitu BERDEA + URDINA + GORRIA.<br>
+        <i>Circuito para aventureros. VERDE + AZUL + ROJO.</i>
         </div>
         """, unsafe_allow_html=True)
         st.write("")
@@ -138,7 +140,7 @@ with tab_seg:
         st.write("✓ **15 minutu lehenago heltzea gomendatzen da.** / Se recomienda llegar 15 minutos antes.")
 
 # ==========================================
-# PESTAÑA 4: LA CALCULADORA (El código intacto)
+# PESTAÑA 4: LA CALCULADORA
 # ==========================================
 with tab_calc:
     st.markdown("### 🏫 Ikastetxearen Datuak / Datos de la Escuela")
@@ -172,35 +174,35 @@ with tab_calc:
         
         with st.expander("💶 Prezioen Taula / Tabla de Precios"):
             st.markdown("""
-            | Programa | 10-19 ikasle | 20-29 ikasle | +29 ikasle |
+            | Programa | 10-19 ikasle / alumnos | 20-29 ikasle / alumnos | +29 ikasle / alumnos |
             | :--- | :---: | :---: | :---: |
             | **YOKO SOILIK** | **15,70 €** | **14,70 €** | **13,70 €** |
             | **2 ZIRKUITU** | **21,00 €** | **20,00 €** | **19,00 €** |
             | **3 ZIRKUITU** | **23,00 €** | **22,00 €** | **21,00 €** |
             """)
         
-        st.info("ℹ️ **GARRANTZITSUA / IMPORTANTE:**\nZirkuitu guztiek **Demo** eta **Laranja** zirkuituak barne hartzen dituzte hasieran, beti egiten dira lehenengo. / Todos los programas incluyen los circuitos **Demo** y **Naranja** al inicio, siempre se realizan primero.")
+        st.info("ℹ️ **GARRANTZITSUA / IMPORTANTE:**\nZirkuitu guztiek **Demo** eta **Laranja** zirkuituak barne hartzen dituzte hasieran, beti egiten dira lehenengo. / Todos los programas incluyen los circuitos **Demo** y **Naranja** al inicio.")
 
         info_programak = {
-            "🟡 1 ZIRKUITUA: YOKO SOILIK (Adina / Edad: 4-8 urte)": {
+            "🟡 1 ZIRKUITUA / CIRCUITO: YOKO SOILIK (Adina / Edad: 4-8 urte/años)": {
                 "id": "yoko", "cat": "yoko", 
-                "desc": "3 itzuli YOKO zirkuituan (Guztira 5 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,10m"
+                "desc": "3 itzuli YOKO zirkuituan. / 3 vueltas en circuito YOKO.\n\n📏 Altuera / Altura min.: > 1,10m\n⏱️ Iraupena / Duración: 1h30 - 2h00"
             },
-            "🟢 🟢 2 ZIRKUITU (Adina / Edad: >9 urte)": {
+            "🟢 🟢 2 ZIRKUITU / CIRCUITOS (Adina / Edad: >9 urte/años)": {
                 "id": "2c_9", "cat": "2c", 
-                "desc": "2 itzuli zirkuitu BERDEETAN (Guztira 4 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,40m"
+                "desc": "2 itzuli zirkuitu BERDEETAN. / 2 vueltas en circuitos VERDES.\n\n📏 Altuera / Altura min.: > 1,40m\n⏱️ Iraupena / Duración: 2h00 - 2h30"
             },
-            "🟢 🔵 2 ZIRKUITU (Adina / Edad: >12 urte)": {
+            "🟢 🔵 2 ZIRKUITU / CIRCUITOS (Adina / Edad: >12 urte/años)": {
                 "id": "2c_12", "cat": "2c", 
-                "desc": "Zirkuitu BERDEA + URDINA (Guztira 4 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,50m"
+                "desc": "Zirkuitu BERDEA + URDINA. / Circuito VERDE + AZUL.\n\n📏 Altuera / Altura min.: > 1,50m\n⏱️ Iraupena / Duración: 2h00 - 2h30"
             },
-            "🟢 🔵 🔵 3 ZIRKUITU (Adina / Edad: 12-14 urte)": {
+            "🟢 🔵 🔵 3 ZIRKUITU / CIRCUITOS (Adina / Edad: 12-14 urte/años)": {
                 "id": "3c_12", "cat": "3c", 
-                "desc": "Zirkuitu BERDEA + 2 itzuli URDINEAN (Guztira 5 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,50m"
+                "desc": "Zirkuitu BERDEA + 2 itzuli URDINEAN. / Circuito VERDE + 2 vueltas en AZUL.\n\n📏 Altuera / Altura min.: > 1,50m\n⏱️ Iraupena / Duración: 2h30 - 3h00"
             },
-            "🟢 🔵 🔴 3 ZIRKUITU (Adina / Edad: >15 urte)": {
+            "🟢 🔵 🔴 3 ZIRKUITU / CIRCUITOS (Adina / Edad: >15 urte/años)": {
                 "id": "3c_15", "cat": "3c", 
-                "desc": "Zirkuitu BERDEA + URDINA + GORRIA (Guztira 5 zirkuitu).\n\n📏 Altuera / Altura min.: > 1,50m"
+                "desc": "Zirkuitu BERDEA + URDINA + GORRIA. / Circuito VERDE + AZUL + ROJO.\n\n📏 Altuera / Altura min.: > 1,50m\n⏱️ Iraupena / Duración: 2h30 - 3h00"
             }
         }
 

@@ -97,39 +97,45 @@ if menu == "🌲 1. Parkea \n\n El Parque":
 # ==========================================
 elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
     st.markdown("### 🧗 Zirkuituak / Circuitos")
-    st.write("78 erronkatik gora eta 23 tirolinadun zirkuituri aurre egingo diezu. Informazio teknikoa: / Con más de 78 retos y 23 tirolinas en los árboles. Información técnica:")
+    st.write("Mendexa Abentura Parkek maila, adin eta beharretara egokitutako zirkuituak ditu. Guztira 78 erronka eta 23 tirolina. / Mendexa Abentura Park cuenta con circuitos adaptados al nivel y edad. Un total de 78 retos con 23 tirolinas.")
     st.write("")
     
     # Fila 1 de circuitos
     c1, c2, c3 = st.columns(3)
     with c1:
         st.markdown("""
-        <div style='background-color:#F3E5F5; padding:20px; border-radius:10px; border-left: 5px solid #9C27B0; min-height: 250px;'>
+        <div style='background-color:#F3E5F5; padding:20px; border-radius:10px; border-left: 5px solid #9C27B0; min-height: 380px; box-shadow: 2px 2px 10px rgba(0,0,0,0.05);'>
         <h4 style='color:#7B1FA2; margin-top:0;'>🟣 DEMO</h4>
         <b>Adina/Edad:</b> Guztiak / Todos<br>
         <b>Altuera/Altura min.:</b> > 1,30m<br>
+        <b>Iraupena/Duración:</b> 10 - 15 min<br>
         <b>Erronkak/Retos:</b> 5 | <b>Tirolinak:</b> 2<br><br>
-        Ezagutza zirkuitua. / <i>Circuito de formación.</i>
+        Ezagutza eta praktikaren zirkuitua. Partehartzaile guztiak igaro behar dira abentura hasi baino lehen.<br>
+        <i>Circuito de formación y práctica por el que todos deben pasar antes de comenzar la aventura.</i>
         </div>
         """, unsafe_allow_html=True)
     with c2:
         st.markdown("""
-        <div style='background-color:#FFF59D; padding:20px; border-radius:10px; border-left: 5px solid #FBC02D; min-height: 250px;'>
+        <div style='background-color:#FFF59D; padding:20px; border-radius:10px; border-left: 5px solid #FBC02D; min-height: 380px; box-shadow: 2px 2px 10px rgba(0,0,0,0.05);'>
         <h4 style='color:#F57F17; margin-top:0;'>🟡 YOKO</h4>
         <b>Adina/Edad:</b> 4-8 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,10m<br>
+        <b>Iraupena/Duración:</b> 20 - 30 min<br>
         <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 3<br><br>
-        Gazte abenturazaleen zirkuitua. / <i>Circuito jóvenes aventureros.</i>
+        Gazte abenturazaleen zirkuitua, txikienentzat haien neurrirako jolasekin.<br>
+        <i>Circuito para jóvenes aventureros, con juegos a la medida de los más pequeños.</i>
         </div>
         """, unsafe_allow_html=True)
     with c3:
         st.markdown("""
-        <div style='background-color:#FFE0B2; padding:20px; border-radius:10px; border-left: 5px solid #FF9800; min-height: 250px;'>
+        <div style='background-color:#FFE0B2; padding:20px; border-radius:10px; border-left: 5px solid #FF9800; min-height: 380px; box-shadow: 2px 2px 10px rgba(0,0,0,0.05);'>
         <h4 style='color:#E65100; margin-top:0;'>🟠 LARANJA / NARANJA</h4>
         <b>Adina/Edad:</b> > 4 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,20m<br>
+        <b>Iraupena/Duración:</b> 15 - 20 min<br>
         <b>Erronkak/Retos:</b> 5 | <b>Tirolinak:</b> 2<br><br>
-        Yoko ondorengo pausoa. / <i>Un paso más tras el Yoko.</i>
+        Yoko ondorengo pausoa, altuera apur bat irabaziz. Familia osoarentzat.<br>
+        <i>El siguiente escalón después del Yoko, ganando un poco de altura.</i>
         </div>
         """, unsafe_allow_html=True)
 
@@ -139,40 +145,47 @@ elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
     c4, c5, c6 = st.columns(3)
     with c4:
         st.markdown("""
-        <div style='background-color:#C8E6C9; padding:20px; border-radius:10px; border-left: 5px solid #4CAF50; min-height: 250px;'>
+        <div style='background-color:#C8E6C9; padding:20px; border-radius:10px; border-left: 5px solid #4CAF50; min-height: 380px; box-shadow: 2px 2px 10px rgba(0,0,0,0.05);'>
         <h4 style='color:#2E7D32; margin-top:0;'>🟢 BERDEA / VERDE</h4>
         <b>Adina/Edad:</b> > 9 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,40m<br>
+        <b>Iraupena/Duración:</b> 20 - 30 min<br>
         <b>Erronkak/Retos:</b> 15 | <b>Tirolinak:</b> 5<br><br>
-        Aurkikuntza zirkuitua. / <i>Circuito de descubrimiento.</i>
+        Aurkikuntza zirkuitua. Lehenengo sentsazioak altueran eta zailtasun txikiagoarekin.<br>
+        <i>Circuito de descubrimiento. Primeras sensaciones en altura con retos sencillos.</i>
         </div>
         """, unsafe_allow_html=True)
     with c5:
         st.markdown("""
-        <div style='background-color:#BBDEFB; padding:20px; border-radius:10px; border-left: 5px solid #2196F3; min-height: 250px;'>
+        <div style='background-color:#BBDEFB; padding:20px; border-radius:10px; border-left: 5px solid #2196F3; min-height: 380px; box-shadow: 2px 2px 10px rgba(0,0,0,0.05);'>
         <h4 style='color:#1565C0; margin-top:0;'>🔵 URDINA / AZUL</h4>
         <b>Adina/Edad:</b> > 12 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,50m<br>
+        <b>Iraupena/Duración:</b> 30 - 45 min<br>
         <b>Erronkak/Retos:</b> 17 | <b>Tirolinak:</b> 6<br><br>
-        Sentsazioen zirkuitua. / <i>Circuito de sensaciones.</i>
+        Sentsazioen zirkuitua. Oreka eta altuera gehiago esperimentatzeko.<br>
+        <i>Circuito de sensaciones. Diseñado para experimentar la sensación de equilibrio y altura.</i>
         </div>
         """, unsafe_allow_html=True)
     with c6:
         st.markdown("""
-        <div style='background-color:#FFCDD2; padding:20px; border-radius:10px; border-left: 5px solid #F44336; min-height: 250px;'>
+        <div style='background-color:#FFCDD2; padding:20px; border-radius:10px; border-left: 5px solid #F44336; min-height: 380px; box-shadow: 2px 2px 10px rgba(0,0,0,0.05);'>
         <h4 style='color:#C62828; margin-top:0;'>🔴 GORRIA / ROJO</h4>
         <b>Adina/Edad:</b> > 15 urte/años<br>
         <b>Altuera/Altura min.:</b> > 1,50m<br>
+        <b>Iraupena/Duración:</b> 30 - 45 min<br>
         <b>Erronkak/Retos:</b> 21 | <b>Tirolinak:</b> 5<br><br>
-        Abenturazaleen zirkuitua. / <i>Circuito para aventureros.</i>
+        Abenturazaleen zirkuitua. Zailtasun eta altuera handiagoko erronkak.<br>
+        <i>Circuito para aventureros. Retos más largos, de mayor dificultad y altura.</i>
         </div>
         """, unsafe_allow_html=True)
 
     st.divider()
     
-    # TIRA DE IMÁGENES AL FINAL
+    # TIRA DE IMÁGENES AL FINAL (Dos filas de 3 imágenes, sin repetir)
     st.markdown("#### 📸 Irudiak / Imágenes")
     
+    # Fila 1 de imágenes
     img1, img2, img3 = st.columns(3)
     with img1:
         st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-demo-01.jpg", use_container_width=True)
@@ -181,8 +194,9 @@ elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
     with img3:
         st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-verde-01.jpg", use_container_width=True)
         
-    st.write("")
+    st.write("") # Espaciador
     
+    # Fila 2 de imágenes
     img4, img5, img6 = st.columns(3)
     with img4:
         st.image("https://mendexapark.com/wp-content/uploads/2018/05/mendexa-abentura-park-tirolinas-circuito-azul-01.jpg", use_container_width=True)
@@ -192,7 +206,7 @@ elif menu == "🧗 2. Zirkuituak \n\n Circuitos":
         st.image("https://mendexapark.com/wp-content/uploads/2018/02/grupos-escolares-mendexa-park-parque-tirolinas-aventura-04.jpg", use_container_width=True)
 
 # ==========================================
-# 3. COMBINACIONES (SÓLO COMBINACIONES Y PAQUETES)
+# 3. COMBINACIONES (PAQUETES ESCOLARES)
 # ==========================================
 elif menu == "🔄 3. Konbinazioak \n\n Combinaciones":
     st.markdown("### 🔄 Zirkuitu Konbinazioak / Combinaciones de Circuitos")

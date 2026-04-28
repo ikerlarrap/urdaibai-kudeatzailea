@@ -328,23 +328,23 @@ elif menu == "💶 5. Aurrekontua \n\n Calculadora":
         st.info("ℹ️ **GARRANTZITSUA:** Pakete guztiek **🟣 Demo** eta **🟠 Laranja** zirkuituak barne hartzen dituzte. / Todos los paquetes incluyen **🟣 Demo** y **🟠 Naranja**.")
 
         info_programak = {
-            "1 ZIRKUITUA / CIRCUITO: YOKO SOILIK (Adina / Edad: 4-8 urte/años)": {
+            "🟡 1 ZIRKUITUA / CIRCUITO: YOKO SOILIK (Adina / Edad: 4-8 urte/años)": {
                 "id": "yoko", "cat": "yoko", 
                 "desc": "🟡 3 itzuli YOKO zirkuituan. / 3 vueltas en circuito YOKO.\n\n📏 Altuera / Altura min.: > 1,10m"
             },
-            "2 ZIRKUITU / CIRCUITOS (Adina / Edad: >9 urte/años)": {
+            "🟢 🟢 2 ZIRKUITU / CIRCUITOS (Adina / Edad: >9 urte/años)": {
                 "id": "2c_9", "cat": "2c", 
                 "desc": "🟢 🟢 2 itzuli zirkuitu BERDEETAN. / 2 vueltas en circuitos VERDES.\n\n📏 Altuera / Altura min.: > 1,40m"
             },
-            "2 ZIRKUITU / CIRCUITOS (Adina / Edad: >12 urte/años)": {
+            "🟢 🔵 2 ZIRKUITU / CIRCUITOS (Adina / Edad: >12 urte/años)": {
                 "id": "2c_12", "cat": "2c", 
                 "desc": "🟢 Zirkuitu BERDEA + 🔵 URDINA. / Circuito VERDE + AZUL.\n\n📏 Altuera / Altura min.: > 1,50m"
             },
-            "3 ZIRKUITU / CIRCUITOS (Adina / Edad: 12-14 urte/años)": {
+            "🟢 🔵 🔵 3 ZIRKUITU / CIRCUITOS (Adina / Edad: 12-14 urte/años)": {
                 "id": "3c_12", "cat": "3c", 
                 "desc": "🟢 Zirkuitu BERDEA + 🔵 🔵 2 itzuli URDINEAN. / Circuito VERDE + 2 vueltas en AZUL.\n\n📏 Altuera / Altura min.: > 1,50m"
             },
-            "3 ZIRKUITU / CIRCUITOS (Adina / Edad: >15 urte/años)": {
+            "🟢 🔵 🔴 3 ZIRKUITU / CIRCUITOS (Adina / Edad: >15 urte/años)": {
                 "id": "3c_15", "cat": "3c", 
                 "desc": "🟢 Zirkuitu BERDEA + 🔵 URDINA + 🔴 GORRIA. / Circuito VERDE + AZUL + ROJO.\n\n📏 Altuera / Altura min.: > 1,50m"
             }

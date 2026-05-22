@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import json
 import os
 
@@ -10,12 +11,12 @@ datos_iniciales = {
     "Ekaina - 1. Astea": {
         "titulo": "Abentura bikoitza: Mendexa Park + Piraguak Lekeition",
         "estado": "Publicado ✅",
-        "texto": "Zure lagunekin, bikotearekin edo familiarekin egun ahaztezin bat pasatzeko plan baten bila zabiltza? Bizkaiko kostaldeak aukera amaigabeak eskaintzen ditu, baina gaurkoan emozioa eta itsasoa uztartzen dituen plan borobil bat proposatu nahi dizugu: abentura bikoitza gurekin."
+        "texto": "\n<h1 style='color: #3eab36; font-family: sans-serif;'>Ongi etorri Mendexa Parkera!</h1>\n<p style='font-family: sans-serif;'>Hau proba bat da. (Esto es una prueba para ver el visualizador).</p>"
     },
     "Ekaina - 2. Astea": {
         "titulo": "Lehenengo aldia tirolinetan? 5 aholku ezinbesteko",
         "estado": "Revisión 📝",
-        "texto": "Zure lehenengo aldia da abentura parke batean? Ez kezkatu! Mendexa Abentura Parkean 70 erronka baino gehiago ditugu pinu artean. Gure etengabeko bizi-lerroari esker, segurtasuna erabatekoa da. Gaur 5 aholku ekarri dizkizugu zure esperientzia ahaztezina izan dadin..."
+        "texto": "Zure lehenengo aldia da abentura parke batean? Ez kezkatu!..."
     },
     "Ekaina - 3. Astea": {
         "titulo": "Familientzako plan ezin hobea: Nola prestatu zure bisita",
@@ -40,7 +41,7 @@ def guardar_datos(datos):
 st.set_page_config(page_title="Mendexa Blog Gestorea", page_icon="🌲", layout="wide")
 
 st.title("📅 Mendexa Blog Gestorea")
-st.markdown("Revisa, edita y gestiona las publicaciones del verano.")
+st.markdown("Revisa, edita y previsualiza las publicaciones del verano como en WordPress.")
 
 datos = cargar_datos()
 
@@ -59,7 +60,7 @@ with st.sidebar.expander("➕ Gehitu aste berria (Añadir semana)"):
                 }
                 guardar_datos(datos)
                 st.success("Ondo gehitu da! (Añadido con éxito)")
-                st.rerun() # Actualiza la app al instante
+                st.rerun() 
             else:
                 st.warning("Aste hori badago jada! (Esa semana ya existe)")
         else:
@@ -68,10 +69,8 @@ with st.sidebar.expander("➕ Gehitu aste berria (Añadir semana)"):
 # --- BARRA LATERAL: SELECCIÓN CON INDICADOR VISUAL ---
 st.sidebar.header("Egutegia (Calendario)")
 
-# Esta función coge el icono del estado para mostrarlo en el menú
 def formato_opcion(clave):
     estado = datos[clave]["estado"]
-    # Extrae el último carácter (el emoji) para que quede un menú limpio
     icono = estado.split(" ")[-1] if " " in estado else "📌"
     return f"{icono} {clave}"
 
@@ -86,26 +85,43 @@ post_actual = datos[semana_elegida]
 # --- ÁREA DE EDICIÓN ---
 st.header(post_actual["titulo"])
 
-# Actualizar el título si es necesario
-nuevo_titulo_editado = st.text_input("Izenburua aldatu (Editar título):", post_actual["titulo"])
+# Fila con el título y el estado para ahorrar espacio
+col1, col2 = st.columns([3, 1])
+with col1:
+    nuevo_titulo_editado = st.text_input("Izenburua aldatu (Editar título):", post_actual["titulo"])
+with col2:
+    opciones_estado = ["Borrador ✏️", "Revisión 📝", "Publicado ✅"]
+    try:
+        indice_estado = opciones_estado.index(post_actual["estado"])
+    except ValueError:
+        indice_estado = 0
+    nuevo_estado = st.selectbox("Egoera (Estado):", opciones_estado, index=indice_estado)
 
-# Selector de estado
-opciones_estado = ["Borrador ✏️", "Revisión 📝", "Publicado ✅"]
-try:
-    indice_estado = opciones_estado.index(post_actual["estado"])
-except ValueError:
-    indice_estado = 0
+st.write("---")
 
-nuevo_estado = st.selectbox("Egoera (Estado):", opciones_estado, index=indice_estado)
+# --- PESTAÑAS TIPO WORDPRESS (CÓDIGO VS VISUAL) ---
+tab1, tab2 = st.tabs(["💻 HTML Kodea (Editor)", "👁️ Ikuspegia (Previsualización Visual)"])
 
-# Caja de texto grande
-nuevo_texto = st.text_area("Testua (Cuerpo del artículo):", post_actual["texto"], height=350)
+with tab1:
+    st.info("Pegatu hemen WordPress-erako edo Mailchimp-erako HTML kodea.")
+    # Caja de texto grande
+    nuevo_texto = st.text_area("Testua (Cuerpo del artículo):", post_actual["texto"], height=500, label_visibility="collapsed")
+
+with tab2:
+    st.info("Horrela ikusiko da webgunean (Así se verá en la web):")
+    # Renderizador de HTML interactivo
+    if nuevo_texto.strip():
+        components.html(nuevo_texto, height=600, scrolling=True)
+    else:
+        st.warning("Ez dago ezer ikusteko. (No hay código para mostrar todavía).")
+
+st.write("---")
 
 # Botón para guardar cambios
-if st.button("Gorde (Guardar cambios)"):
+if st.button("Gorde (Guardar cambios)", type="primary"):
     datos[semana_elegida]["titulo"] = nuevo_titulo_editado
     datos[semana_elegida]["estado"] = nuevo_estado
     datos[semana_elegida]["texto"] = nuevo_texto
     guardar_datos(datos)
     st.success("¡Texto guardado correctamente! El archivo se ha actualizado.")
-    st.rerun() # Actualiza la interfaz para reflejar los cambios en el menú lateral
+    st.rerun()

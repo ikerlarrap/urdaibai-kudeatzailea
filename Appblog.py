@@ -7,12 +7,29 @@ from streamlit_quill import st_quill
 # Archivo donde se guardarán los textos reales
 ARCHIVO_JSON = 'datos_blog.json'
 
-# Datos iniciales
+# --- AQUÍ GUARDAMOS TU DISEÑO CORPORATIVO (No molesta al jefe) ---
+ESTILOS_MENDEXA = """
+<style>
+    .mendexa-blog-wrapper {
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        color: #333333; line-height: 1.8; max-width: 900px;
+        margin: 0px auto; background-color: #ffffff;
+        padding: 30px; border-radius: 12px;
+    }
+    .mendexa-blog-wrapper h1 { color: #3eab36; font-size: 2.2em; text-align: center; margin-bottom: 20px; }
+    .mendexa-blog-wrapper h2 { color: #2c5e3b; font-size: 1.6em; border-bottom: 2px solid #e2ece5; padding-bottom: 10px; margin-top: 30px; }
+    .mendexa-blog-wrapper p { font-size: 1.1em; margin-bottom: 15px; }
+    .mendexa-blog-wrapper ul { margin-bottom: 20px; padding-left: 20px; }
+    .mendexa-blog-wrapper li { font-size: 1.1em; margin-bottom: 10px; }
+</style>
+"""
+
+# Datos iniciales (Ahora el texto está limpio, sin CSS, para que Quill no falle)
 datos_iniciales = {
     "Ekaina - 1. Astea": {
         "titulo": "Abentura bikoitza: Mendexa Park + Piraguak Lekeition",
         "estado": "Publicado 🟢",
-        "texto": "<h1 style='color: #3eab36; font-family: sans-serif;'>Ongi etorri Mendexa Parkera!</h1><p>Hau proba bat da.</p>"
+        "texto": "<h1>Ongi etorri Mendexa Parkera!</h1><p>Hau proba bat da. Orain zure nagusiak ondo ikusiko du testua hemen.</p>"
     }
 }
 
@@ -62,7 +79,6 @@ st.sidebar.header("Egutegia (Calendario)")
 
 def formato_opcion(clave):
     estado = datos[clave]["estado"]
-    # Semáforo visual
     if "Borrador" in estado:
         semaforo = "🔴"
     elif "Revisión" in estado:
@@ -101,7 +117,9 @@ st.write("---")
 tab_visual, tab_html, tab_preview = st.tabs(["👁️ Editor texto", "💻 Editor html", "🚀 Visual web"])
 
 with tab_visual:
-    st.info("💡 Hemen idatzi dezakezu Word batean bezala. (Edición visual básica)")
+    st.info("💡 **Nagusiarentzat:** Hemen idatzi dezakezu Word batean bezala.")
+    
+    # Ahora Quill lee texto HTML limpio y no colapsa
     texto_visual = st_quill(value=post_actual["texto"], html=True, key=f"quill_{semana_elegida}")
     
     if st.button("💾 Gorde (Guardar texto)", type="primary", key="btn_visual"):
@@ -113,7 +131,7 @@ with tab_visual:
         st.rerun()
 
 with tab_html:
-    st.info("💡 Hemen HTML kodea ikusi eta aldatu dezakezu (Botoiak, CSS, etab).")
+    st.info("💡 **Zuretzat:** Hemen HTML kode garbia ikusi dezakezu WordPressera eramateko.")
     texto_html_final = st.text_area("HTML Kodea", value=post_actual["texto"], height=450, label_visibility="collapsed")
     
     if st.button("💾 Gorde (Guardar código HTML)", type="primary", key="btn_html"):
@@ -126,8 +144,15 @@ with tab_html:
 
 with tab_preview:
     st.info("💡 Horrela geratuko da azkenean webgunean estiloekin.")
-    # Mostramos directamente lo que está guardado en la base de datos actual para evitar conflictos
+    
+    # Magia pura: Inyectamos los estilos y envolvemos el texto limpio justo antes de mostrarlo
     if post_actual["texto"] and post_actual["texto"].strip():
-        components.html(post_actual["texto"], height=500, scrolling=True)
+        html_para_mostrar = f"""
+        {ESTILOS_MENDEXA}
+        <div class="mendexa-blog-wrapper">
+            {post_actual["texto"]}
+        </div>
+        """
+        components.html(html_para_mostrar, height=600, scrolling=True)
     else:
         st.warning("Ez dago ezer ikusteko.")

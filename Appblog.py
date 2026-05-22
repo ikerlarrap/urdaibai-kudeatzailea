@@ -2,11 +2,12 @@ import streamlit as st
 import streamlit.components.v1 as components
 import json
 import os
+from streamlit_quill import st_quill
 
 # Archivo donde se guardarán los textos reales
 ARCHIVO_JSON = 'datos_blog.json'
 
-# --- AQUÍ GUARDAMOS TU DISEÑO CORPORATIVO (No molesta en el editor) ---
+# --- DISEÑO CORPORATIVO (Se aplica solo en la previsualización) ---
 ESTILOS_MENDEXA = """
 <style>
     .mendexa-blog-wrapper {
@@ -23,12 +24,12 @@ ESTILOS_MENDEXA = """
 </style>
 """
 
-# Datos iniciales 
+# Datos iniciales (Solo texto con estructura básica)
 datos_iniciales = {
     "Ekaina - 1. Astea": {
         "titulo": "Abentura bikoitza: Mendexa Park + Piraguak Lekeition",
         "estado": "Publicado 🟢",
-        "texto": "<h1>Ongi etorri Mendexa Parkera!</h1>\n<p>Hemen idatzi dezakezu testua zuzenean.</p>"
+        "texto": "<h1>Ongi etorri Mendexa Parkera!</h1><p>Idatzi hemen zure testua (Escribe aquí tu texto).</p>"
     }
 }
 
@@ -112,13 +113,14 @@ with col2:
 
 st.write("---")
 
-# --- SISTEMA DE PESTAÑAS SIMPLIFICADO ---
-tab_editor, tab_preview = st.tabs(["📝 Editorea (Testua / HTML)", "🚀 Emaitza (Web)"])
+# --- SISTEMA DE PESTAÑAS ---
+tab_visual, tab_preview = st.tabs(["📝 Editorea (Testua)", "🚀 Emaitza (Web)"])
 
-with tab_editor:
-    st.info("💡 **Idatzi hemen:** Testu arrunta edo HTML kodea sar dezakezu zuzenean. Ez da inoiz apurtuko.")
+with tab_visual:
+    st.info("💡 **Nagusiarentzat:** Hemen idatzi eta editatu dezakezu testua Word batean bezala (Mendexako estiloak automatikoki gehituko dira emaitzan).")
     
-    texto_editado = st.text_area("Testua / Kodea", value=post_actual["texto"], height=500, label_visibility="collapsed")
+    # Editor Quill en modo HTML puro para que guarde negritas, listas y saltos de línea correctamente
+    texto_editado = st_quill(value=post_actual["texto"], html=True, key=f"quill_editor_{semana_elegida}")
     
     if st.button("💾 Gorde (Guardar)", type="primary"):
         datos[semana_elegida]["titulo"] = nuevo_titulo_editado
@@ -131,7 +133,7 @@ with tab_editor:
 with tab_preview:
     st.info("💡 Horrela geratuko da azkenean webgunean estiloekin.")
     
-    # Inyectamos los estilos y envolvemos el texto limpio justo antes de mostrarlo
+    # Inyectamos los estilos y envolvemos el texto limpio que viene del editor visual
     if post_actual["texto"] and post_actual["texto"].strip():
         html_para_mostrar = f"""
         {ESTILOS_MENDEXA}

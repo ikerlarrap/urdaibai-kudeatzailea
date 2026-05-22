@@ -11,7 +11,7 @@ ARCHIVO_JSON = 'datos_blog.json'
 datos_iniciales = {
     "Ekaina - 1. Astea": {
         "titulo": "Abentura bikoitza: Mendexa Park + Piraguak Lekeition",
-        "estado": "Publicado ✅",
+        "estado": "Publicado 🟢",
         "texto": "<h1 style='color: #3eab36; font-family: sans-serif;'>Ongi etorri Mendexa Parkera!</h1><p>Hau proba bat da.</p>"
     }
 }
@@ -97,33 +97,37 @@ with col2:
 
 st.write("---")
 
-# --- SISTEMA DE PESTAÑAS (JEFE VS DESARROLLADOR) ---
-# La primera pestaña es la que se abre por defecto al entrar
-tab_jefe, tab_iker, tab_preview = st.tabs(["👁️ Editorea (Nagusia)", "💻 HTML (Zu)", "🚀 Emaitza (Web)"])
+# --- SISTEMA DE PESTAÑAS ---
+tab_visual, tab_html, tab_preview = st.tabs(["👁️ Editor texto", "💻 Editor html", "🚀 Visual web"])
 
-with tab_jefe:
-    st.info("💡 **Nagusiarentzat:** Hemen idatzi dezakezu Word batean bezala. (Escribe aquí directamente, pon negritas, listas...)")
-    # Editor visual (WYSIWYG). Retorna HTML generado automáticamente.
+with tab_visual:
+    st.info("💡 Hemen idatzi dezakezu Word batean bezala. (Edición visual básica)")
     texto_visual = st_quill(value=post_actual["texto"], html=True, key=f"quill_{semana_elegida}")
+    
+    if st.button("💾 Gorde (Guardar texto)", type="primary", key="btn_visual"):
+        datos[semana_elegida]["titulo"] = nuevo_titulo_editado
+        datos[semana_elegida]["estado"] = nuevo_estado
+        datos[semana_elegida]["texto"] = texto_visual 
+        guardar_datos(datos)
+        st.success("¡Texto guardado correctamente!")
+        st.rerun()
 
-with tab_iker:
-    st.info("💡 **Zuretzat:** Hemen HTML kodea ikusi eta estilo pertsonalizatuak sar ditzakezu (Botoiak, CSS, etab).")
-    # Si el jefe edita, esto se actualiza. Aquí tú puedes meter mano al código.
-    texto_html_final = st.text_area("HTML Kodea", value=texto_visual if texto_visual else post_actual["texto"], height=450, label_visibility="collapsed")
+with tab_html:
+    st.info("💡 Hemen HTML kodea ikusi eta aldatu dezakezu (Botoiak, CSS, etab).")
+    texto_html_final = st.text_area("HTML Kodea", value=post_actual["texto"], height=450, label_visibility="collapsed")
+    
+    if st.button("💾 Gorde (Guardar código HTML)", type="primary", key="btn_html"):
+        datos[semana_elegida]["titulo"] = nuevo_titulo_editado
+        datos[semana_elegida]["estado"] = nuevo_estado
+        datos[semana_elegida]["texto"] = texto_html_final 
+        guardar_datos(datos)
+        st.success("¡Código HTML guardado correctamente!")
+        st.rerun()
 
 with tab_preview:
-    st.info("💡 **Ikuspegia:** Horrela geratuko da azkenean webgunean estiloekin.")
-    if texto_html_final and texto_html_final.strip():
-        components.html(texto_html_final, height=500, scrolling=True)
+    st.info("💡 Horrela geratuko da azkenean webgunean estiloekin.")
+    # Mostramos directamente lo que está guardado en la base de datos actual para evitar conflictos
+    if post_actual["texto"] and post_actual["texto"].strip():
+        components.html(post_actual["texto"], height=500, scrolling=True)
     else:
         st.warning("Ez dago ezer ikusteko.")
-
-# --- BOTÓN DE GUARDAR ---
-if st.button("💾 Gorde (Guardar cambios)", type="primary"):
-    datos[semana_elegida]["titulo"] = nuevo_titulo_editado
-    datos[semana_elegida]["estado"] = nuevo_estado
-    # Guardamos lo que haya en la pestaña HTML, que es la versión final con tus mejoras
-    datos[semana_elegida]["texto"] = texto_html_final 
-    guardar_datos(datos)
-    st.success("¡Texto guardado correctamente!")
-    st.rerun()

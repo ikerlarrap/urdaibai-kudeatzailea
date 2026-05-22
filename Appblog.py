@@ -2,12 +2,11 @@ import streamlit as st
 import streamlit.components.v1 as components
 import json
 import os
-from streamlit_quill import st_quill
 
 # Archivo donde se guardarán los textos reales
 ARCHIVO_JSON = 'datos_blog.json'
 
-# --- AQUÍ GUARDAMOS TU DISEÑO CORPORATIVO (No molesta al jefe) ---
+# --- AQUÍ GUARDAMOS TU DISEÑO CORPORATIVO (No molesta en el editor) ---
 ESTILOS_MENDEXA = """
 <style>
     .mendexa-blog-wrapper {
@@ -24,12 +23,12 @@ ESTILOS_MENDEXA = """
 </style>
 """
 
-# Datos iniciales (Ahora el texto está limpio, sin CSS, para que Quill no falle)
+# Datos iniciales 
 datos_iniciales = {
     "Ekaina - 1. Astea": {
         "titulo": "Abentura bikoitza: Mendexa Park + Piraguak Lekeition",
         "estado": "Publicado 🟢",
-        "texto": "<h1>Ongi etorri Mendexa Parkera!</h1><p>Hau proba bat da. Orain zure nagusiak ondo ikusiko du testua hemen.</p>"
+        "texto": "<h1>Ongi etorri Mendexa Parkera!</h1>\n<p>Hemen idatzi dezakezu testua zuzenean.</p>"
     }
 }
 
@@ -113,39 +112,26 @@ with col2:
 
 st.write("---")
 
-# --- SISTEMA DE PESTAÑAS ---
-tab_visual, tab_html, tab_preview = st.tabs(["👁️ Editor texto", "💻 Editor html", "🚀 Visual web"])
+# --- SISTEMA DE PESTAÑAS SIMPLIFICADO ---
+tab_editor, tab_preview = st.tabs(["📝 Editorea (Testua / HTML)", "🚀 Emaitza (Web)"])
 
-with tab_visual:
-    st.info("💡 **Nagusiarentzat:** Hemen idatzi dezakezu Word batean bezala.")
+with tab_editor:
+    st.info("💡 **Idatzi hemen:** Testu arrunta edo HTML kodea sar dezakezu zuzenean. Ez da inoiz apurtuko.")
     
-    # Ahora Quill lee texto HTML limpio y no colapsa
-    texto_visual = st_quill(value=post_actual["texto"], html=True, key=f"quill_{semana_elegida}")
+    texto_editado = st.text_area("Testua / Kodea", value=post_actual["texto"], height=500, label_visibility="collapsed")
     
-    if st.button("💾 Gorde (Guardar texto)", type="primary", key="btn_visual"):
+    if st.button("💾 Gorde (Guardar)", type="primary"):
         datos[semana_elegida]["titulo"] = nuevo_titulo_editado
         datos[semana_elegida]["estado"] = nuevo_estado
-        datos[semana_elegida]["texto"] = texto_visual 
+        datos[semana_elegida]["texto"] = texto_editado
         guardar_datos(datos)
-        st.success("¡Texto guardado correctamente!")
-        st.rerun()
-
-with tab_html:
-    st.info("💡 **Zuretzat:** Hemen HTML kode garbia ikusi dezakezu WordPressera eramateko.")
-    texto_html_final = st.text_area("HTML Kodea", value=post_actual["texto"], height=450, label_visibility="collapsed")
-    
-    if st.button("💾 Gorde (Guardar código HTML)", type="primary", key="btn_html"):
-        datos[semana_elegida]["titulo"] = nuevo_titulo_editado
-        datos[semana_elegida]["estado"] = nuevo_estado
-        datos[semana_elegida]["texto"] = texto_html_final 
-        guardar_datos(datos)
-        st.success("¡Código HTML guardado correctamente!")
+        st.success("¡Guardado correctamente!")
         st.rerun()
 
 with tab_preview:
     st.info("💡 Horrela geratuko da azkenean webgunean estiloekin.")
     
-    # Magia pura: Inyectamos los estilos y envolvemos el texto limpio justo antes de mostrarlo
+    # Inyectamos los estilos y envolvemos el texto limpio justo antes de mostrarlo
     if post_actual["texto"] and post_actual["texto"].strip():
         html_para_mostrar = f"""
         {ESTILOS_MENDEXA}

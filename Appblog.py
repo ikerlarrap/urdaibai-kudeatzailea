@@ -67,6 +67,8 @@ with st.sidebar.expander("➕ Gehitu aste berria (Añadir semana)"):
                     "texto": ""
                 }
                 guardar_datos(datos)
+                # Al añadir una nueva, le decimos a la memoria que salte a esa nueva semana
+                st.session_state.semana_actual = nueva_semana
                 st.success("Ondo gehitu da! (Añadido con éxito)")
                 st.rerun() 
             else:
@@ -74,7 +76,7 @@ with st.sidebar.expander("➕ Gehitu aste berria (Añadir semana)"):
         else:
             st.error("Bete eremu guztiak, mesedez.")
 
-# --- BARRA LATERAL: SISTEMA DE SEMÁFOROS ---
+# --- BARRA LATERAL: SISTEMA DE SEMÁFOROS Y MEMORIA ---
 st.sidebar.header("Egutegia (Calendario)")
 
 def formato_opcion(clave):
@@ -89,11 +91,28 @@ def formato_opcion(clave):
         semaforo = "⚪"
     return f"{semaforo} {clave}"
 
+lista_semanas = list(datos.keys())
+
+# MEMORIA: Si es la primera vez que entra, guarda la primera semana en la memoria
+if 'semana_actual' not in st.session_state:
+    st.session_state.semana_actual = lista_semanas[0]
+
+# MEMORIA: Por si se borra alguna semana, asegurar que no dé error
+if st.session_state.semana_actual not in lista_semanas:
+    st.session_state.semana_actual = lista_semanas[0]
+
+# Le decimos al selector que empiece en el índice que está guardado en memoria
+indice_memoria = lista_semanas.index(st.session_state.semana_actual)
+
 semana_elegida = st.sidebar.selectbox(
     "Aukeratu astea:", 
-    list(datos.keys()),
+    lista_semanas,
+    index=indice_memoria,
     format_func=formato_opcion
 )
+
+# Actualizamos la memoria con lo que elija el usuario manualmente
+st.session_state.semana_actual = semana_elegida
 
 post_actual = datos[semana_elegida]
 
@@ -119,7 +138,7 @@ tab_visual, tab_preview = st.tabs(["📝 Editorea (Testua)", "🚀 Emaitza (Web)
 with tab_visual:
     st.info("💡 **Nagusiarentzat:** Hemen idatzi eta editatu dezakezu testua Word batean bezala (Mendexako estiloak automatikoki gehituko dira emaitzan).")
     
-    # Editor Quill en modo HTML puro para que guarde negritas, listas y saltos de línea correctamente
+    # Editor Quill
     texto_editado = st_quill(value=post_actual["texto"], html=True, key=f"quill_editor_{semana_elegida}")
     
     if st.button("💾 Gorde (Guardar)", type="primary"):
@@ -133,7 +152,7 @@ with tab_visual:
 with tab_preview:
     st.info("💡 Horrela geratuko da azkenean webgunean estiloekin.")
     
-    # Inyectamos los estilos y envolvemos el texto limpio que viene del editor visual
+    # Inyectamos los estilos
     if post_actual["texto"] and post_actual["texto"].strip():
         html_para_mostrar = f"""
         {ESTILOS_MENDEXA}

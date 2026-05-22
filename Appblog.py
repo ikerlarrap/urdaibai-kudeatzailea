@@ -44,25 +44,68 @@ st.markdown("Revisa, edita y gestiona las publicaciones del verano.")
 
 datos = cargar_datos()
 
-# --- BARRA LATERAL ---
+# --- BARRA LATERAL: AÑADIR NUEVAS SEMANAS ---
+with st.sidebar.expander("➕ Gehitu aste berria (Añadir semana)"):
+    nueva_semana = st.text_input("Astea (adibidez: Uztaila - 1. Astea)")
+    nuevo_titulo = st.text_input("Izenburua (Título del post)")
+    
+    if st.button("Gehitu (Añadir)"):
+        if nueva_semana and nuevo_titulo:
+            if nueva_semana not in datos:
+                datos[nueva_semana] = {
+                    "titulo": nuevo_titulo,
+                    "estado": "Borrador ✏️",
+                    "texto": ""
+                }
+                guardar_datos(datos)
+                st.success("Ondo gehitu da! (Añadido con éxito)")
+                st.rerun() # Actualiza la app al instante
+            else:
+                st.warning("Aste hori badago jada! (Esa semana ya existe)")
+        else:
+            st.error("Bete eremu guztiak, mesedez. (Rellena todos los campos)")
+
+# --- BARRA LATERAL: SELECCIÓN CON INDICADOR VISUAL ---
 st.sidebar.header("Egutegia (Calendario)")
-semana_elegida = st.sidebar.selectbox("Aukeratu astea (Elegir semana):", list(datos.keys()))
+
+# Esta función coge el icono del estado para mostrarlo en el menú
+def formato_opcion(clave):
+    estado = datos[clave]["estado"]
+    # Extrae el último carácter (el emoji) para que quede un menú limpio
+    icono = estado.split(" ")[-1] if " " in estado else "📌"
+    return f"{icono} {clave}"
+
+semana_elegida = st.sidebar.selectbox(
+    "Aukeratu astea (Elegir semana):", 
+    list(datos.keys()),
+    format_func=formato_opcion
+)
 
 post_actual = datos[semana_elegida]
 
 # --- ÁREA DE EDICIÓN ---
 st.header(post_actual["titulo"])
 
+# Actualizar el título si es necesario
+nuevo_titulo_editado = st.text_input("Izenburua aldatu (Editar título):", post_actual["titulo"])
+
 # Selector de estado
 opciones_estado = ["Borrador ✏️", "Revisión 📝", "Publicado ✅"]
-nuevo_estado = st.selectbox("Egoera (Estado):", opciones_estado, index=opciones_estado.index(post_actual["estado"]))
+try:
+    indice_estado = opciones_estado.index(post_actual["estado"])
+except ValueError:
+    indice_estado = 0
+
+nuevo_estado = st.selectbox("Egoera (Estado):", opciones_estado, index=indice_estado)
 
 # Caja de texto grande
 nuevo_texto = st.text_area("Testua (Cuerpo del artículo):", post_actual["texto"], height=350)
 
-# Botón para guardar
+# Botón para guardar cambios
 if st.button("Gorde (Guardar cambios)"):
+    datos[semana_elegida]["titulo"] = nuevo_titulo_editado
     datos[semana_elegida]["estado"] = nuevo_estado
     datos[semana_elegida]["texto"] = nuevo_texto
     guardar_datos(datos)
-    st.success("¡Texto guardado correctamente! El archivo datos_blog.json se ha actualizado.")
+    st.success("¡Texto guardado correctamente! El archivo se ha actualizado.")
+    st.rerun() # Actualiza la interfaz para reflejar los cambios en el menú lateral
